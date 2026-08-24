@@ -1,0 +1,33 @@
+/* Project K.I.L.O.S. - Shared Styles */
+
+/* Material Symbols icon rendering: outline by default, filled when
+   the element has data-weight="fill" (e.g. the active bottom-nav item) */
+.material-symbols-outlined {
+  font-variation-settings:
+    'FILL' 0,
+    'wght' 400,
+    'GRAD' 0,
+    'opsz' 24;
+}
+.material-symbols-outlined[data-weight="fill"] {
+  font-variation-settings:
+    'FILL' 1,
+    'wght' 400,
+    'GRAD' 0,
+    'opsz' 24;
+}
+
+/* Custom scrollbar for a cleaner look (WebKit browsers) */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #fcf9f8;
+}
+::-webkit-scrollbar-thumb {
+  background: #e5e2e1;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #bfc9c1;
+}

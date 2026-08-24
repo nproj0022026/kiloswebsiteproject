@@ -1,0 +1,202 @@
+<!-- Greeting -->
+<div class="text-center md:text-left">
+  <div class="flex items-center justify-center md:justify-start gap-2 mb-2">
+    <h1 class="font-headline-lg-mobile text-headline-lg-mobile md:font-headline-lg md:text-headline-lg text-primary" data-greeting>Magandang araw!</h1>
+    <button type="button" data-edit-name class="text-primary hover:text-secondary transition-colors shrink-0" aria-label="Edit your name">
+      <span class="material-symbols-outlined align-middle">edit</span>
+    </button>
+  </div>
+  <p class="font-body-lg text-body-lg text-on-surface-variant">I-record ang iyong blood pressure ngayon para sa mas magandang kalusugan.</p>
+</div>
+
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-stack-lg">
+
+  <!-- Tracker Form Area (Bento Left) -->
+  <div class="lg:col-span-5   bg-surface-container-low border border-primary rounded-xl p-6 shadow-sm flex flex-col gap-stack-md relative overflow-hidden">
+    <h2 class="font-headline-md text-headline-md text-primary mb-2 relative z-10">I-log ang BP Mo</h2>
+    <form class="flex flex-col gap-stack-md relative z-10" id="bpForm">
+      <div class="flex flex-col gap-2">
+        <label class="font-label-caps text-label-caps text-on-surface" for="systolic">Systolic (Mataas na Numero)</label>
+        <input class="w-full bg-surface border border-primary rounded-lg px-4 py-3 text-lg font-body-lg focus:ring-2 focus:ring-primary focus:border-primary transition-all outline-none" id="systolic" max="250" min="50" placeholder="Halimbawa: 120" required type="number">
+        <span class="text-sm text-on-surface-variant">Top number mula sa iyong monitor</span>
+      </div>
+      <div class="flex flex-col gap-2">
+        <label class="font-label-caps text-label-caps text-on-surface" for="diastolic">Diastolic (Mababang Numero)</label>
+        <input class="w-full bg-surface border border-primary rounded-lg px-4 py-3 text-lg font-body-lg focus:ring-2 focus:ring-primary focus:border-primary transition-all outline-none" id="diastolic" max="150" min="30" placeholder="Halimbawa: 80" required type="number">
+        <span class="text-sm text-on-surface-variant">Bottom number mula sa iyong monitor</span>
+      </div>
+      <button class="w-full bg-primary hover:bg-surface-tint text-on-primary font-label-caps text-label-caps rounded-full py-4 mt-4 transition-colors min-h-[56px] flex items-center justify-center gap-2" type="submit">
+        <span class="material-symbols-outlined">save</span>
+        BASAHIN ANG BP KO
+      </button>
+    </form>
+  </div>
+
+  <!-- History Area (Bento Right) -->
+  <div class="lg:col-span-7 flex flex-col gap-stack-md">
+    <div class="bg-surface border border-primary rounded-xl overflow-hidden flex-grow flex flex-col">
+      <div class="p-6 border-b border-outline-variant   bg-surface-container-low flex justify-between items-center">
+        <h2 class="font-headline-md text-headline-md text-primary">Recent History</h2>
+        <button type="button" data-clear-history class="flex items-center justify-center w-8 h-8 mt-1 text-on-surface-variant transition-colors disabled:opacity-30 disabled:cursor-not-allowed disabled:hover:text-on-surface-variant" aria-label="Clear all history" disabled>
+          <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3 6h18"></path>
+            <path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+            <path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"></path>
+            <path d="M10 11v6"></path>
+            <path d="M14 11v6"></path>
+          </svg>
+        </button>
+      </div>
+
+      <!-- Static header, never scrolls -->
+      <div class="overflow-x-auto">
+        <table class="w-full text-left border-collapse table-fixed">
+          <colgroup>
+            <col class="w-[40%]">
+            <col class="w-[30%]">
+            <col class="w-[30%]">
+          </colgroup>
+          <thead>
+            <tr class="bg-surface-variant text-on-surface-variant font-label-caps text-label-caps">
+              <th class="p-4 border-b border-outline-variant">Petsa / Oras</th>
+              <th class="p-4 border-b border-outline-variant">Reading</th>
+              <th class="p-4 border-b border-outline-variant">Status</th>
+            </tr>
+          </thead>
+        </table>
+      </div>
+
+      <!-- Only this table scrolls -->
+      <div class="overflow-x-auto overflow-y-auto min-h-[300px] max-h-[300px]">
+        <table class="w-full text-left border-collapse table-fixed">
+          <colgroup>
+            <col class="w-[40%]">
+            <col class="w-[30%]">
+            <col class="w-[30%]">
+          </colgroup>
+          <tbody class="font-body-md text-body-md text-on-surface" data-history-body>
+            <tr>
+              <td colspan="3" class="p-6 text-center text-on-surface-variant">Wala pang naitatalang BP reading.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Urgent Action Card (toggled by scripts/pages/tracker.js when a reading is in Crisis range) -->
+    <div class="bg-error-container border-l-4 border-error rounded-r-xl p-6 shadow-sm flex flex-col sm:flex-row items-center gap-4 hidden" data-urgent-card>
+      <span class="material-symbols-outlined text-error text-4xl">emergency</span>
+      <div class="flex-grow">
+        <h3 class="font-headline-md text-headline-md text-on-error-container">Mataas ang BP mo ngayon.</h3>
+        <p class="text-on-error-container opacity-80 text-sm">Kung may nararamdamang kakaiba, tumawag agad.</p>
+      </div>
+      <button class="bg-error hover:bg-[#93000a] text-on-error font-label-caps text-label-caps px-6 py-3 rounded-full transition-colors whitespace-nowrap">
+        Tawagan ang BHW
+      </button>
+    </div>
+  </div>
+
+</div>
+
+<!-- Delete Confirmation Modal -->
+<div id="delete-confirm-overlay" class="fixed inset-0 z-[100] flex items-center justify-center bg-on-surface/40 backdrop-blur-sm hidden">
+  <div class="bg-surface p-8 rounded-xl shadow-xl max-w-[400px] w-[90%] flex flex-col gap-6 border border-outline-variant">
+    <div class="flex flex-col gap-2 items-center text-center">
+      <div class="w-14 h-14 bg-error-container rounded-full flex items-center justify-center text-error mb-2">
+        <span class="material-symbols-outlined text-3xl">delete</span>
+      </div>
+      <h2 class="font-headline-md text-headline-md text-on-surface">Tanggalin ang History?</h2>
+      <p class="font-body-md text-on-surface-variant">Lahat ng naitalang BP readings mo ay permanenteng mabubura. Hindi na ito mababawi.</p>
+    </div>
+    <div class="flex flex-col gap-3">
+      <button id="confirm-delete-btn" class="w-full bg-error hover:bg-[#93000a] text-on-error font-label-caps text-label-caps py-4 rounded-lg transition-colors focus:ring-4 focus:ring-error/50">Oo, Burahin</button>
+      <button id="cancel-delete-btn" class="w-full text-on-surface-variant font-label-caps text-label-caps py-2 hover:text-primary transition-colors">Kanselahin</button>
+    </div>
+  </div>
+</div>
+
+<!-- Crisis Modal — Crisis readings only. Same theme as the other status
+     modals, but urgent styling (error color) and a direct call-to-action
+     to contact the BHW, since this is the highest-risk tier. Manual close
+     only — no auto-close, this should not be easy to accidentally dismiss.
+     Content is populated by scripts/pages/tracker.js. -->
+<div id="crisis-modal-overlay" class="hidden fixed inset-0 z-[100] flex items-center justify-center bg-on-surface/40 backdrop-blur-sm p-4">
+  <div class="bg-surface rounded-xl shadow-xl max-w-[560px] w-full max-h-[85vh] overflow-y-auto flex flex-col gap-6 border border-error p-8">
+
+    <!-- Reading + status recap. -->
+    <div class="flex items-center gap-3">
+      <span class="material-symbols-outlined text-3xl text-error">priority_high</span>
+      <span class="font-headline-md text-headline-md text-on-surface" data-crisis-reading>-- / --</span>
+      <span class="ml-auto inline-flex items-center gap-1 px-3 py-1 rounded-full text-xs font-label-caps bg-error text-on-error" data-crisis-status-badge>Crisis</span>
+    </div>
+
+    <div class="flex flex-col gap-3">
+      <h2 class="font-headline-md text-headline-md text-error">Mataas na Mataas ang BP Mo</h2>
+      <p class="text-on-surface-variant text-sm">Kung may nararamdamang matinding sakit ng ulo, paghihirap sa paghinga, o kirot sa dibdib, tumawag agad ng tulong. Huwag mag-antay.</p>
+    </div>
+
+    <div class="flex flex-col gap-3">
+      <a href="#/emergency" id="crisis-call-bhw" class="w-full bg-error hover:bg-[#93000a] text-on-error font-label-caps text-label-caps py-3 rounded-lg transition-colors flex items-center justify-center gap-2">
+        <span class="material-symbols-outlined text-lg">emergency</span>
+        Tawagan ang BHW
+      </a>
+      <button id="crisis-modal-close" class="w-full text-on-surface-variant font-label-caps text-label-caps py-2 hover:text-primary transition-colors">Isara</button>
+    </div>
+  </div>
+</div>
+
+<!-- Normal Reading Modal — Normal readings only. Same theme as the DASH
+     modal, but no PDF download. Manual close only (ISARA button or
+     clicking outside) — no auto-close/countdown. Content is populated
+     by scripts/pages/tracker.js. -->
+<div id="normal-modal-overlay" class="hidden fixed inset-0 z-[100] flex items-center justify-center bg-on-surface/40 backdrop-blur-sm p-4">
+  <div class="bg-surface rounded-xl shadow-xl max-w-[560px] w-full max-h-[85vh] overflow-y-auto flex flex-col gap-6 border border-outline-variant p-8">
+
+    <!-- Reading + status recap. Checkmark icon alone = saved, no label text. -->
+    <div class="flex items-center gap-3">
+      <span class="material-symbols-outlined text-3xl text-on-secondary-container">check_circle</span>
+      <span class="font-headline-md text-headline-md text-on-surface" data-normal-reading>-- / --</span>
+      <span class="ml-auto inline-flex items-center gap-1 px-3 py-1 rounded-full text-xs font-label-caps" data-normal-status-badge>Normal</span>
+    </div>
+
+    <div class="flex flex-col gap-3">
+      <div class="bg-surface-container-low p-4 rounded-lg border border-outline-variant flex flex-col gap-1">
+        <p class="font-label-caps text-label-caps text-primary">Health Tip para sa'yo:</p>
+        <p class="text-on-surface-variant text-sm">Ipagpatuloy ang pag-inom ng tubig at ang pagkain nang tama. Galing mo dyan!</p>
+      </div>
+    </div>
+
+    <button id="normal-modal-close" class="w-full text-on-surface-variant font-label-caps text-label-caps py-2 hover:text-primary transition-colors">Isara</button>
+  </div>
+</div>
+
+<!-- DASH Guidance Modal — Elevated & High readings only.
+     Content (title/body/PDF link) is populated by scripts/pages/tracker.js
+     based on BP category. Doubles as the save confirmation for these two
+     categories, so it fully replaces the successState block for them. -->
+<div id="dash-modal-overlay" class="hidden fixed inset-0 z-[100] flex items-center justify-center bg-on-surface/40 backdrop-blur-sm p-4">
+  <div class="bg-surface rounded-xl shadow-xl max-w-[560px] w-full max-h-[85vh] overflow-y-auto flex flex-col gap-6 border border-outline-variant p-8">
+
+    <!-- Reading + status recap. Checkmark icon alone = saved, no label text. -->
+    <div class="flex items-center gap-3">
+      <span class="material-symbols-outlined text-3xl" data-dash-icon>check_circle</span>
+      <span class="font-headline-md text-headline-md text-on-surface" data-dash-reading>-- / --</span>
+      <span class="ml-auto inline-flex items-center px-3 py-1 rounded-full text-xs font-label-caps" data-dash-status-badge>Status</span>
+    </div>
+
+    <!-- DASH guidance content, swapped per category by tracker.js -->
+    <div class="flex flex-col gap-3">
+      <h2 class="font-headline-md text-headline-md text-primary" data-dash-title>DASH Diet Guidance</h2>
+      <div class="text-on-surface-variant text-sm flex flex-col gap-2" data-dash-body>
+        <!-- populated dynamically -->
+      </div>
+    </div>
+
+    <div class="flex flex-col gap-3">
+      <a id="dash-download-link" href="#" download class="w-full text-center bg-primary border border-primary text-on-primary font-label-caps text-label-caps py-3 rounded-lg hover:bg-primary hover:text-on-primary transition-colors flex items-center justify-center">
+        I-download ang DASH Guide (PDF)
+      </a>
+      <button id="dash-modal-close" class="w-full text-on-surface-variant font-label-caps text-label-caps py-2 hover:text-primary transition-colors">Isara</button>
+    </div>
+  </div>
+</div>

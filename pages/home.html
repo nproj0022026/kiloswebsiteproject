@@ -1,0 +1,79 @@
+<!-- Hero Section -->
+<section class="w-full flex flex-col md:flex-row items-center   bg-surface-container rounded-2xl overflow-hidden shadow-sm border border-primary">
+  <div class="w-full md:w-1/2 p-8 md:p-12 flex flex-col gap-stack-sm">
+    <div class="flex items-center gap-2 mb-2">
+      <span class="font-label-caps text-label-caps text-primary tracking-widest uppercase" data-home-greeting>Welcome</span>
+      <button type="button" data-edit-name class="text-primary hover:text-secondary transition-colors" aria-label="Edit your name">
+        <span class="material-symbols-outlined text-base align-middle">edit</span>
+      </button>
+    </div>
+    <h1 class="font-headline-lg md:font-data-display text-[38px] leading-[44px] font-bold md:text-[48px] md:leading-[56px] text-primary">Alagaan ang Puso para sa Magandang Bukas.</h1>
+    <p class="font-body-lg text-body-lg text-on-surface-variant mt-4 max-w-[500px]">
+      Project K.I.L.O.S. is here to guide you in managing hypertension. Simple tools, clear information, and a community approach to better health.
+    </p>
+  </div>
+  <div class="w-full md:w-1/2 min-h-[300px] h-full">
+    <img alt="Community members smiling" class="object-cover w-full h-full min-h-[300px]" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDya55wIAWuBQwdb074AaaT7pJ78GfOrzoEg55m6noY7p2XSj7YUCIkV9jniwH_GppEtipx_MEJehcl04YAiTbMnG_leUNty6hRxKjx6CslwYKae7T5NfCV6C6Gk2w9YT5MtL31t5gVUaqwQhbGTQCcAF4hdt_sS-JTxA5-N88ZbFlYmxzPS2bPXG7em-U-mTa4jWH1Ri-L4i2cGtaAvbwXndyBlFS4zr0d5ARyDcHDKRYlyT4HTQghyg">
+  </div>
+</section>
+
+<!-- Main Navigation Cards Bento Grid -->
+<section class="grid grid-cols-1 md:grid-cols-3 gap-stack-sm md:gap-stack-md w-full">
+
+  <!-- Learn Card -->
+  <a class="group flex flex-col p-8   bg-surface-container-low rounded-xl border border-primary   hover:shadow-lg transition-all duration-300 h-full relative overflow-hidden" href="#/about" data-route>
+    <div class="z-10 flex flex-col h-full gap-4">
+      <div class="w-16 h-16 rounded-full bg-primary-container text-on-primary-container flex items-center justify-center">
+        <span class="material-symbols-outlined text-3xl">menu_book</span>
+      </div>
+      <h2 class="font-headline-md text-headline-md text-primary">Learn about Hypertension</h2>
+      <p class="font-body-lg text-body-lg text-on-surface-variant flex-grow">Understand your blood pressure, symptoms, and how to manage it through daily habits.</p>
+      <div class="mt-auto flex items-center gap-2 text-primary font-bold">
+        Read more <span class="material-symbols-outlined group-hover:translate-x-1 transition-transform">arrow_forward</span>
+      </div>
+    </div>
+  </a>
+
+  <!-- Log BP Card -->
+  <a class="group flex flex-col p-8   bg-surface-container-low rounded-xl border border-primary   hover:shadow-lg transition-all duration-300 h-full relative overflow-hidden" href="#/tracker" data-route>
+    <div class="z-10 flex flex-col h-full gap-4">
+      <div class="w-16 h-16 rounded-full bg-primary text-on-primary flex items-center justify-center">
+        <span class="material-symbols-outlined text-3xl">monitor_heart</span>
+      </div>
+      <h2 class="font-headline-md text-headline-md text-primary">Log your BP</h2>
+      <p class="font-body-lg text-body-lg text-on-surface-variant flex-grow">Keep a secure, easy-to-read daily record of your blood pressure readings.</p>
+      <div class="mt-auto flex items-center gap-2 text-primary font-bold">
+        Start tracking <span class="material-symbols-outlined group-hover:translate-x-1 transition-transform">arrow_forward</span>
+      </div>
+    </div>
+  </a>
+
+  <!-- Emergency Plan Card (Urgent) -->
+  <a class="group flex flex-col p-8   bg-surface-container-low rounded-xl border border-primary   hover:shadow-lg transition-all duration-300 h-full relative overflow-hidden" href="#/emergency" data-route>
+    <div class="z-10 flex flex-col h-full gap-4">
+      <div class="w-16 h-16 rounded-full bg-error text-on-error flex items-center justify-center">
+        <span class="material-symbols-outlined text-3xl">emergency_share</span>
+      </div>
+      <h2 class="font-headline-md text-headline-md text-primary">Emergency Plan</h2>
+      <p class="font-body-lg text-body-lg text-on-surface-variant flex-grow">Know what to do during a hypertensive crisis. Quick access to hotline numbers.</p>
+      <div class="mt-auto flex items-center gap-2 text-primary font-bold">
+        View contacts <span class="material-symbols-outlined group-hover:translate-x-1 transition-transform">arrow_forward</span>
+      </div>
+    </div>
+  </a>
+
+</section>
+
+<!-- Info Strip -->
+<section class="w-full bg-tertiary-fixed p-6 rounded-xl border border-primary flex flex-col md:flex-row items-center justify-between gap-4">
+  <div class="flex items-center gap-4">
+    <span class="material-symbols-outlined text-4xl text-primary">health_and_safety</span>
+    <div>
+      <h3 class="font-headline-md text-headline-md text-primary">Need assistance?</h3>
+      <p class="font-body-md text-body-md text-on-surface-variant">Your local Barangay Health Worker is ready to help.</p>
+    </div>
+  </div>
+  <button class="bg-primary text-on-primary font-label-caps text-label-caps px-6 py-4 rounded-lg min-h-[56px] hover:bg-secondary transition-colors focus:ring-4 focus:ring-primary/50 outline-none w-full md:w-auto">
+    Contact Health Center
+  </button>
+</section>
