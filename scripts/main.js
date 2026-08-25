@@ -1,8 +1,6 @@
 /* Project K.I.L.O.S. - Core Site Script (site-wide only) */
 
-/* ============================================================
-   1. TAILWIND CONFIG
-   ============================================================ */
+/* 1. TAILWIND CONFIG */
 tailwind.config = {
   darkMode: "class",
   theme: {
@@ -116,9 +114,7 @@ async function render() {
 
 window.addEventListener("hashchange", render);
 
-/* ============================================================
-   3. SHARED CHROME (header, bottom nav)
-   ============================================================ */
+/*3. SHARED CHROME (header, bottom nav)*/
 (function () {
   const NAV_ITEMS = [
     { key: "home", label: "Home", icon: "home", path: "/" },
@@ -187,9 +183,7 @@ window.addEventListener("hashchange", render);
   });
 })();
 
-/* ============================================================
-   4. WELCOME MODAL
-   ============================================================ */
+/*4. WELCOME MODAL */
 document.addEventListener("DOMContentLoaded", function () {
   const overlay = document.getElementById("welcome-modal-overlay");
   if (!overlay) return;
@@ -254,10 +248,7 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 });
 
-/* ============================================================
-   5. TIME-BASED GREETING + NAME DISPLAY
-   Shared across Home and Tracker pages.
-   ============================================================ */
+/* 5. TIME-BASED GREETING + NAME DISPLAY Shared across Home and Tracker pages.*/
 function getTimeGreeting() {
   const now = new Date();
   const mins = now.getHours() * 60 + now.getMinutes();

@@ -1,8 +1,6 @@
 /* Project K.I.L.O.S. - BP Tracker Page Script */
 
-/* ============================================================
-   1. BP HISTORY
-   ============================================================ */
+/*1. BP HISTORY*/
 const BP_HISTORY_KEY = "bpHistory";
 const MAX_HISTORY = 10;
 

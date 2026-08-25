@@ -1,4 +1,4 @@
-/* Project K.I.L.O.S. - About Page Script (includes FAQ accordion) */
+/* Project K.I.L.O.S. - About Page Script */
 
 document.addEventListener("click", (e) => {
   const toggle = e.target.closest("[data-faq-toggle]");
