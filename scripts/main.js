@@ -45,8 +45,7 @@ tailwind.config = {
   }
 };
 
-/* ============================================================
-   2. ROUTER
+/* 2. ROUTER
    Each route points at a separate HTML file under pages/.
    render() fetches the file's markup and injects it into
    #page-content. Fetched pages are cached in memory.
@@ -57,8 +56,7 @@ tailwind.config = {
    Per-page init calls (initBpForm, etc.) are guarded with
    typeof checks so this file has no hard dependency on
    page-specific scripts like tracker.js — if one fails to
-   load, the router still works for every other page.
-   ============================================================ */
+   load, the router still works for every other page. */
 const ROUTES = {
   "/": { page: "home", title: "Home - K.I.L.O.S.", file: "pages/home.html" },
   "/about": { page: "about", title: "About - K.I.L.O.S.", file: "pages/about.html" },
@@ -114,7 +112,7 @@ async function render() {
 
 window.addEventListener("hashchange", render);
 
-/*3. SHARED CHROME (header, bottom nav)*/
+/* 3. SHARED CHROME (header, bottom nav) */
 (function () {
   const NAV_ITEMS = [
     { key: "home", label: "Home", icon: "home", path: "/" },
@@ -248,7 +246,7 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 });
 
-/* 5. TIME-BASED GREETING + NAME DISPLAY Shared across Home and Tracker pages.*/
+/*5. TIME-BASED GREETING + NAME DISPLAY Shared across Home and Tracker pages.*/
 function getTimeGreeting() {
   const now = new Date();
   const mins = now.getHours() * 60 + now.getMinutes();

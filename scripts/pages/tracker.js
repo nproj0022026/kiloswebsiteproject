@@ -1,6 +1,6 @@
 /* Project K.I.L.O.S. - BP Tracker Page Script */
 
-/*1. BP HISTORY*/
+/* 1. BP HISTORY */
 const BP_HISTORY_KEY = "bpHistory";
 const MAX_HISTORY = 10;
 
@@ -83,13 +83,11 @@ function renderBpHistory() {
   }).join("");
 }
 
-/* ============================================================
-   2. URGENT CARD (Crisis)
+/* 2. URGENT CARD (Crisis)
    Visibility must reflect the most recent saved reading at all
    times, not just right after a fresh submit — otherwise
    navigating away and back to /tracker makes it vanish even
-   though the last recorded reading is still Crisis.
-   ============================================================ */
+   though the last recorded reading is still Crisis. */
 function syncUrgentCard() {
   const urgentCard = document.querySelector("[data-urgent-card]");
   if (!urgentCard) return;
@@ -110,12 +108,10 @@ function drawAttentionToUrgentCard() {
   setTimeout(() => urgentCard.classList.remove("animate-pulse"), 1500);
 }
 
-/* ============================================================
-   3. DASH MODAL (Elevated & High)
+/* 3. DASH MODAL (Elevated & High)
    Fully replaces the success state for these two categories.
    No countdown — stays open until the user closes it or
-   downloads the PDF.
-   ============================================================ */
+   downloads the PDF. */
 function buildDashHtml(cfg) {
   const doItems = cfg.dos.map((d) => `
     <li class="flex items-start gap-2">
@@ -261,13 +257,11 @@ function closeDashModal() {
   if (overlay) overlay.classList.add("hidden");
 }
 
-/* ============================================================
-   3a2. CRISIS MODAL (Crisis readings only)
+/* 3a2. CRISIS MODAL (Crisis readings only)
    Same visual theme as the other status modals, but urgent
    styling and a direct call-to-action to contact the BHW.
    Manual close only — deliberately no auto-close, this is the
-   highest-risk tier and shouldn't be easy to dismiss by accident.
-   ============================================================ */
+   highest-risk tier and shouldn't be easy to dismiss by accident. */
 function openCrisisModal(systolic, diastolic) {
   const overlay = document.getElementById("crisis-modal-overlay");
   if (!overlay) return;
@@ -285,12 +279,10 @@ function closeCrisisModal() {
   if (form) form.reset();
 }
 
-/* ============================================================
-   3b. NORMAL MODAL (Normal readings only)
+/* 3b. NORMAL MODAL (Normal readings only)
    Same visual theme as the DASH modal, but no PDF download.
    Manual close only — via the ISARA button or clicking outside
-   the modal. No auto-close/countdown.
-   ============================================================ */
+   the modal. No auto-close/countdown. */
 function openNormalModal(systolic, diastolic) {
   const overlay = document.getElementById("normal-modal-overlay");
   if (!overlay) return;
@@ -313,23 +305,19 @@ function closeNormalModal() {
   if (form) form.reset();
 }
 
-/* ============================================================
-   3c. NAVIGATION CLEANUP
+/* 3c. NAVIGATION CLEANUP
    Called by main.js's router before swapping #page-content out,
    so no open modal/state carries over stale if the user
-   navigates away from /tracker mid-flow.
-   ============================================================ */
+   navigates away from /tracker mid-flow. */
 function resetTrackerTransientUI() {
   closeCrisisModal();
   closeDashModal();
   closeNormalModal();
 }
 
-/* ============================================================
-   4. BP TRACKER FORM
+/* 4. BP TRACKER FORM
    Called by main.js's router on every navigation to /tracker,
-   since fresh innerHTML has no listeners attached.
-   ============================================================ */
+   since fresh innerHTML has no listeners attached. */
 function initBpForm() {
   updateTrackerGreeting();
   renderBpHistory();

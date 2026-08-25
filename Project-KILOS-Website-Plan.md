@@ -34,6 +34,8 @@ KILOS/
 ├── assets/
 │   ├── logo/
 │   │   └── kilos-logo.png
+│   ├── images/
+│   │   └── peoplesmiling.jpg   (Home hero photo — licensed free stock, replaces earlier AI-generated placeholder)
 │   └── dash-pdf-files/
 │       ├── dash-elevated.pdf   (downloadable DASH guide — Elevated BP category)
 │       └── dash-high.pdf       (downloadable DASH guide — High BP category)
@@ -71,7 +73,7 @@ Sketch a simple wireframe per page: Home, About Hypertension (intro, complicatio
 
 Build the persistent app shell in `index.html`: header mount (`#site-header`), bottom-nav mount (`#site-bottom-nav`), welcome modal, and a single `#page-content` container — this shell mounts once and never reloads. Nav includes Home, About Hypertension, Blood Pressure Tracker, and Emergency Plan (FAQs route intentionally left commented out for now). Write the hash-based router in `main.js` that, on `hashchange`, fetches the matching HTML fragment from `pages/` and injects it into `#page-content`, updating `document.title`, `document.body.dataset.page`, and active nav state — the "Claude-app pattern" of a fixed shell with a swappable content region instead of separate full-page loads.
 
-Fully build the Home, About Hypertension, and Blood Pressure Tracker fragments as the templates the rest will follow — since Blood Pressure Tracker introduces the name-based, time-of-day greeting (via the welcome modal + `getTimeGreeting()`), the input form + reading-based suggestion logic, and the on-device history list (via localStorage) that the rest of the site's interactivity depends on.
+Fully build the Home, About Hypertension, and Blood Pressure Tracker fragments as the templates the rest will follow — since Blood Pressure Tracker introduces the name-based, time-of-day greeting (via the welcome modal + `getTimeGreeting()`), the input form + reading-based suggestion logic, and the on-device history list (via localStorage) that the rest of the site's interactivity depends on. **Status: Home hero image updated to a locally hosted, licensed photo (`assets/images/peoplesmiling.jpg`), replacing the original AI-generated/placeholder image URL.**
 
 ### 4. Core Content Pages
 
