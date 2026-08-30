@@ -142,7 +142,7 @@ window.addEventListener("hashchange", render);
 
     mount.innerHTML = `
   <header class="md:sticky md:top-0 w-full z-50 flex justify-between items-center px-container-margin py-4 bg-surface dark:bg-background border-b border-outline-variant dark:border-outline">
-    <a class="flex items-center gap-3" href="#/">
+    <a class="flex items-center gap-3 " href="#/">
       <img src="assets/logo/kilos-logo.png" alt="Project K.I.L.O.S. logo" class="h-10 w-10 object-contain shrink-0">
       <span class="font-headline-lg text-headline-lg font-bold text-brand-maroon">K.I.L.O.S.</span>
     </a>
