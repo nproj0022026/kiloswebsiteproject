@@ -94,6 +94,43 @@
         Tawagan ang BHW
       </button>
     </div>
+
+    <!-- Urgent Action Card (Severe Low) -->
+    <div class="bg-tertiary-container border-l-4 border-tertiary rounded-r-xl p-6 shadow-sm flex flex-col sm:flex-row items-center gap-4 hidden" data-urgent-card-low>
+      <span class="material-symbols-outlined text-tertiary text-4xl">emergency</span>
+      <div class="flex-grow">
+        <h3 class="font-headline-md text-headline-md text-on-tertiary-container">Napakababa ng BP mo ngayon.</h3>
+        <p class="text-on-tertiary-container opacity-80 text-sm">Kung nahihilo, nanghihina, o parang hihimatayin ka, umupo o humiga agad at tumawag ng tulong.</p>
+      </div>
+      <button class="bg-tertiary hover:opacity-90 text-on-tertiary font-label-caps text-label-caps px-6 py-3 rounded-full transition-colors whitespace-nowrap">
+        Tawagan ang BHW
+      </button>
+    </div>
+  </div>
+
+  <!-- Severe Low Modal — Severe Low readings only. Mirrors the Crisis modal but tertiary-colored, hypotension messaging. Manual close only. -->
+  <div id="severe-low-modal-overlay" class="hidden fixed inset-0 z-[100] flex items-center justify-center bg-on-surface/40 backdrop-blur-sm p-4">
+    <div class="bg-surface rounded-xl shadow-xl max-w-[560px] w-full max-h-[85vh] overflow-y-auto flex flex-col gap-6 border border-tertiary p-8">
+
+      <div class="flex items-center gap-3">
+        <span class="material-symbols-outlined text-3xl text-tertiary">priority_high</span>
+        <span class="font-headline-md text-headline-md text-on-surface" data-severe-low-reading>-- / --</span>
+        <span class="ml-auto inline-flex items-center gap-1 px-3 py-1 rounded-full text-xs font-label-caps bg-tertiary text-on-tertiary" data-severe-low-status-badge>Severe Low</span>
+      </div>
+
+      <div class="flex flex-col gap-3">
+        <h2 class="font-headline-md text-headline-md text-tertiary">Napakababa ng BP Mo</h2>
+        <p class="text-on-surface-variant text-sm">Kung nahihilo, malabo ang paningin, nanghihina, o parang hihimatayin ka, umupo o humiga agad, itaas ang mga paa kung kaya, at tumawag ng tulong. Huwag tumayo nang bigla.</p>
+      </div>
+
+      <div class="flex flex-col gap-3">
+        <a href="#/emergency" id="severe-low-call-bhw" class="w-full bg-tertiary hover:opacity-90 text-on-tertiary font-label-caps text-label-caps py-3 rounded-lg transition-colors flex items-center justify-center gap-2">
+          <span class="material-symbols-outlined text-lg">emergency</span>
+          Tawagan ang BHW
+        </a>
+        <button id="severe-low-modal-close" class="w-full text-on-surface-variant font-label-caps text-label-caps py-2 hover:text-primary transition-colors">Isara</button>
+      </div>
+    </div>
   </div>
 
 </div>
@@ -116,7 +153,7 @@
 </div>
 
 <!-- Crisis Modal — Crisis readings only. Same theme as the other status
-     modals, but urgent styling (error color) and a direct call-to-action
+    modals, but urgent styling (error color) and a direct call-to-action
      to contact the BHW, since this is the highest-risk tier. Manual close
      only — no auto-close, this should not be easy to accidentally dismiss.
      Content is populated by scripts/pages/tracker.js. -->

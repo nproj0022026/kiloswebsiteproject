@@ -58,10 +58,10 @@ tailwind.config = {
    page-specific scripts like tracker.js — if one fails to
    load, the router still works for every other page. */
 const ROUTES = {
-  "/": { page: "home", title: "Home - K.I.L.O.S.", file: "pages/home.html" },
-  "/about": { page: "about", title: "About - K.I.L.O.S.", file: "pages/about.html" },
-  "/tracker": { page: "tracker", title: "Tracker - K.I.L.O.S.", file: "pages/tracker.html" },
-  "/emergency": { page: "emergency", title: "Emergency - K.I.L.O.S.", file: "pages/emergency.html" }
+  "/": { page: "home", title: "K.I.L.O.S.", file: "pages/home.html" },
+  "/about": { page: "about", title: "K.I.L.O.S.", file: "pages/about.html" },
+  "/tracker": { page: "tracker", title: "K.I.L.O.S.", file: "pages/tracker.html" },
+  "/emergency": { page: "emergency", title: "K.I.L.O.S.", file: "pages/emergency.html" }
   // "/faqs": { page: "faqs", title: "FAQs - K.I.L.O.S.", file: "pages/faqs.html" }
 };
 

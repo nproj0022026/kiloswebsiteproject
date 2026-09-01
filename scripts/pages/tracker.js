@@ -18,6 +18,10 @@ function saveBpHistory(history) {
 }
 
 function getBpStatus(systolic, diastolic) {
+  // Severe hypotension — most urgent, checked first
+  if (systolic < 70 || diastolic < 40) {
+    return { label: "Severe Low", icon: "priority_high", classes: "bg-tertiary text-on-tertiary" };
+  }
   if (systolic > 180 || diastolic > 120) {
     return { label: "Crisis", icon: "priority_high", classes: "bg-error text-on-error" };
   }
@@ -26,6 +30,11 @@ function getBpStatus(systolic, diastolic) {
   }
   if (systolic >= 130 || diastolic >= 80) {
     return { label: "High", icon: "warning", classes: "bg-error-container text-on-error-container" };
+  }
+  // Hypotension — checked after high tiers so an unusual combo (e.g. low
+  // systolic with elevated diastolic) still flags the higher-risk side
+  if (systolic < 90 || diastolic < 60) {
+    return { label: "Low", icon: "trending_down", classes: "bg-tertiary-container text-on-tertiary-container" };
   }
   if (systolic >= 120 && diastolic < 80) {
     return { label: "Elevated", icon: "warning", classes: "bg-[#ffecb3] text-[#795548]" };
@@ -83,24 +92,31 @@ function renderBpHistory() {
   }).join("");
 }
 
-/* 2. URGENT CARD (Crisis)
+/* 2. URGENT CARDS (Crisis + Severe Low)
    Visibility must reflect the most recent saved reading at all
    times, not just right after a fresh submit — otherwise
    navigating away and back to /tracker makes it vanish even
-   though the last recorded reading is still Crisis. */
+   though the last recorded reading is still urgent. Only one of
+   the two cards can be visible at a time, since they reflect the
+   single latest reading. */
 function syncUrgentCard() {
-  const urgentCard = document.querySelector("[data-urgent-card]");
-  if (!urgentCard) return;
+  const urgentCardHigh = document.querySelector("[data-urgent-card]");
+  const urgentCardLow = document.querySelector("[data-urgent-card-low]");
 
   const history = getBpHistory();
   const latest = history[0];
-  const isCrisis = latest && getBpStatus(latest.systolic, latest.diastolic).label === "Crisis";
+  const latestLabel = latest ? getBpStatus(latest.systolic, latest.diastolic).label : null;
 
-  urgentCard.classList.toggle("hidden", !isCrisis);
+  if (urgentCardHigh) {
+    urgentCardHigh.classList.toggle("hidden", latestLabel !== "Crisis");
+  }
+  if (urgentCardLow) {
+    urgentCardLow.classList.toggle("hidden", latestLabel !== "Severe Low");
+  }
 }
 
-function drawAttentionToUrgentCard() {
-  const urgentCard = document.querySelector("[data-urgent-card]");
+function drawAttentionToUrgentCard(selector = "[data-urgent-card]") {
+  const urgentCard = document.querySelector(selector);
   if (!urgentCard) return;
 
   urgentCard.scrollIntoView({ behavior: "smooth", block: "center" });
@@ -108,10 +124,11 @@ function drawAttentionToUrgentCard() {
   setTimeout(() => urgentCard.classList.remove("animate-pulse"), 1500);
 }
 
-/* 3. DASH MODAL (Elevated & High)
-   Fully replaces the success state for these two categories.
+/* 3. DASH-STYLE MODAL (Elevated, High, & Low)
+   Fully replaces the success state for these categories.
    No countdown — stays open until the user closes it or
-   downloads the PDF. */
+   downloads the PDF (Low has no PDF yet, so that button is hidden
+   for it). */
 function buildDashHtml(cfg) {
   const doItems = cfg.dos.map((d) => `
     <li class="flex items-start gap-2">
@@ -217,6 +234,34 @@ const HIGH_CONFIG = {
   chartBad: ["Tuyo", "Bagoong", "Hotdog", "Longganisa", "Tocino", "Corned beef", "Softdrinks", "Alak"]
 };
 
+/* Draft copy — client's revisions doc only lists a "HYPOTENSION" heading
+   with no body content yet, unlike the Hypertension DASH sections which
+   came fully written. Replace with the client's official wording once
+   provided. */
+const LOW_CONFIG = {
+  intro: "Medyo mababa ang BP mo. Kadalasan ay hindi ito agad delikado, pero mahalagang bantayan ang katawan mo at umiwas sa biglaang paggalaw.",
+  dos: [
+    "Tumayo nang dahan-dahan mula sa pagkakahiga o pagkakaupo",
+    "Uminom ng sapat na tubig araw-araw",
+    "Kumain nang regular, huwag nang huwag magpalampas ng kanin",
+    "Magpahinga at umupo agad kung nahihilo o nanghihina"
+  ],
+  donts: [
+    "Iwasan ang biglaang pagtayo, lalo na pagkagising",
+    "Huwag magtagal na nakatayo sa mainit na lugar",
+    "Iwasan ang pag-inom ng alak",
+    "Huwag laktawan ang kainan, lalo na ang almusal"
+  ],
+  meals: [
+    { icon: "breakfast_dining", label: "Almusal", text: "Kanin, itlog, at prutas — huwag laktawan" },
+    { icon: "lunch_dining", label: "Tanghalian", text: "Sabaw na may gulay at protina, sapat na tubig" },
+    { icon: "cookie", label: "Meryenda", text: "Prutas o crackers, at tubig" },
+    { icon: "dinner_dining", label: "Hapunan", text: "Regular na kainan, huwag paglaktawan" }
+  ],
+  chartGood: ["Sabaw", "Prutas", "Tubig", "Regular na kainan", "Itlog"],
+  chartBad: ["Biglaang pagtayo", "Mahabang pagtayo", "Alak", "Paglaktaw ng kainan"]
+};
+
 const DASH_CONTENT = {
   Elevated: {
     title: "Simulan ang DASH Diet",
@@ -227,6 +272,11 @@ const DASH_CONTENT = {
     title: "DASH Diet — Kailangan Mo Ito",
     body: buildDashHtml(HIGH_CONFIG),
     pdf: "assets/dash-pdf-files/dash-high.pdf"
+  },
+  Low: {
+    title: "Alagaan ang Mababang BP",
+    body: buildDashHtml(LOW_CONFIG),
+    pdf: null // no downloadable guide yet for hypotension
   }
 };
 
@@ -247,7 +297,14 @@ function openDashModal(category, systolic, diastolic) {
 
   document.querySelector("[data-dash-title]").textContent = content.title;
   document.querySelector("[data-dash-body]").innerHTML = content.body;
-  document.getElementById("dash-download-link").href = content.pdf;
+
+  const downloadLink = document.getElementById("dash-download-link");
+  if (content.pdf) {
+    downloadLink.href = content.pdf;
+    downloadLink.classList.remove("hidden");
+  } else {
+    downloadLink.classList.add("hidden");
+  }
 
   overlay.classList.remove("hidden");
 }
@@ -257,11 +314,7 @@ function closeDashModal() {
   if (overlay) overlay.classList.add("hidden");
 }
 
-/* 3a2. CRISIS MODAL (Crisis readings only)
-   Same visual theme as the other status modals, but urgent
-   styling and a direct call-to-action to contact the BHW.
-   Manual close only — deliberately no auto-close, this is the
-   highest-risk tier and shouldn't be easy to dismiss by accident. */
+/* 3a2. CRISIS MODAL (Crisis readings only) */
 function openCrisisModal(systolic, diastolic) {
   const overlay = document.getElementById("crisis-modal-overlay");
   if (!overlay) return;
@@ -269,7 +322,7 @@ function openCrisisModal(systolic, diastolic) {
   document.querySelector("[data-crisis-reading]").textContent = `${systolic} / ${diastolic}`;
 
   overlay.classList.remove("hidden");
-  drawAttentionToUrgentCard();
+  drawAttentionToUrgentCard("[data-urgent-card]");
 }
 
 function closeCrisisModal() {
@@ -279,10 +332,27 @@ function closeCrisisModal() {
   if (form) form.reset();
 }
 
-/* 3b. NORMAL MODAL (Normal readings only)
-   Same visual theme as the DASH modal, but no PDF download.
-   Manual close only — via the ISARA button or clicking outside
-   the modal. No auto-close/countdown. */
+/* 3a3. SEVERE LOW MODAL (Severe Low readings only)
+   Mirrors the Crisis modal — tertiary styling, direct CTA to
+   contact the BHW, manual close only. */
+function openSevereLowModal(systolic, diastolic) {
+  const overlay = document.getElementById("severe-low-modal-overlay");
+  if (!overlay) return;
+
+  document.querySelector("[data-severe-low-reading]").textContent = `${systolic} / ${diastolic}`;
+
+  overlay.classList.remove("hidden");
+  drawAttentionToUrgentCard("[data-urgent-card-low]");
+}
+
+function closeSevereLowModal() {
+  const overlay = document.getElementById("severe-low-modal-overlay");
+  if (overlay) overlay.classList.add("hidden");
+  const form = document.getElementById("bpForm");
+  if (form) form.reset();
+}
+
+/* 3b. NORMAL MODAL (Normal readings only) */
 function openNormalModal(systolic, diastolic) {
   const overlay = document.getElementById("normal-modal-overlay");
   if (!overlay) return;
@@ -305,19 +375,15 @@ function closeNormalModal() {
   if (form) form.reset();
 }
 
-/* 3c. NAVIGATION CLEANUP
-   Called by main.js's router before swapping #page-content out,
-   so no open modal/state carries over stale if the user
-   navigates away from /tracker mid-flow. */
+/* 3c. NAVIGATION CLEANUP */
 function resetTrackerTransientUI() {
   closeCrisisModal();
   closeDashModal();
   closeNormalModal();
+  closeSevereLowModal();
 }
 
-/* 4. BP TRACKER FORM
-   Called by main.js's router on every navigation to /tracker,
-   since fresh innerHTML has no listeners attached. */
+/* 4. BP TRACKER FORM */
 function initBpForm() {
   updateTrackerGreeting();
   renderBpHistory();
@@ -330,6 +396,9 @@ function initBpForm() {
 
   const crisisModalClose = document.getElementById("crisis-modal-close");
   const crisisModalOverlay = document.getElementById("crisis-modal-overlay");
+
+  const severeLowModalClose = document.getElementById("severe-low-modal-close");
+  const severeLowModalOverlay = document.getElementById("severe-low-modal-overlay");
 
   const dashModalClose = document.getElementById("dash-modal-close");
   const dashModalOverlay = document.getElementById("dash-modal-overlay");
@@ -356,10 +425,12 @@ function initBpForm() {
 
     if (status.label === "Normal") {
       openNormalModal(systolic, diastolic);
-    } else if (status.label === "Elevated" || status.label === "High") {
+    } else if (status.label === "Elevated" || status.label === "High" || status.label === "Low") {
       openDashModal(status.label, systolic, diastolic);
     } else if (status.label === "Crisis") {
       openCrisisModal(systolic, diastolic);
+    } else if (status.label === "Severe Low") {
+      openSevereLowModal(systolic, diastolic);
     }
   });
 
@@ -370,6 +441,16 @@ function initBpForm() {
   if (crisisModalOverlay) {
     crisisModalOverlay.addEventListener("click", (e) => {
       if (e.target === crisisModalOverlay) closeCrisisModal();
+    });
+  }
+
+  if (severeLowModalClose) {
+    severeLowModalClose.addEventListener("click", closeSevereLowModal);
+  }
+
+  if (severeLowModalOverlay) {
+    severeLowModalOverlay.addEventListener("click", (e) => {
+      if (e.target === severeLowModalOverlay) closeSevereLowModal();
     });
   }
 
