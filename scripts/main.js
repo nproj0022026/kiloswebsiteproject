@@ -62,7 +62,6 @@ const ROUTES = {
   "/about": { page: "about", title: "K.I.L.O.S.", file: "pages/about.html" },
   "/tracker": { page: "tracker", title: "K.I.L.O.S.", file: "pages/tracker.html" },
   "/emergency": { page: "emergency", title: "K.I.L.O.S.", file: "pages/emergency.html" }
-  // "/faqs": { page: "faqs", title: "FAQs - K.I.L.O.S.", file: "pages/faqs.html" }
 };
 
 const pageCache = new Map();

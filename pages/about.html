@@ -1,12 +1,13 @@
 <!-- Hero Section -->
-<section class="flex flex-col gap-stack-sm text-center md:text-left">
+<section class="relative flex flex-col gap-stack-sm text-center md:text-left">
+  <div aria-hidden="true" class="pointer-events-none absolute -z-10 -top-10 -left-10 md:-left-16 w-[380px] h-[380px] rounded-full bg-primary-container/20 blur-3xl"></div>
   <h1 class="font-headline-lg-mobile md:font-headline-lg text-headline-lg-mobile md:text-headline-lg text-primary">Understanding Hypertension</h1>
   <p class="font-body-lg text-body-lg text-on-surface-variant max-w-6xl">Learn about high blood pressure, why it's important to monitor, and how to recognize warning signs to keep your heart healthy.</p>
 </section>
 
 <!-- Bento Grid for Concepts -->
-<section class="grid grid-cols-1 md:grid-cols-2 gap-container-margin">
-  <div class="  bg-surface-container-low rounded-xl p-container-margin border border-primary flex flex-col gap-stack-sm">
+<section class="relative grid grid-cols-1 md:grid-cols-2 gap-container-margin rounded-3xl p-4 md:p-6 -mx-4 md:-mx-6 bg-gradient-to-b from-primary-container/10 via-surface-container-low/40 to-surface/0">
+  <div class="  bg-surface-container-low rounded-xl p-container-margin border border-primary shadow-sm flex flex-col gap-stack-sm">
     <div class="w-12 h-12 bg-primary-container text-on-primary-container rounded-full flex items-center justify-center mb-2">
       <span class="material-symbols-outlined" data-weight="fill">favorite</span>
     </div>
@@ -14,7 +15,7 @@
     <p class="font-body-md text-body-md text-on-surface-variant">Hypertension, or high blood pressure, happens when the force of blood pushing against your artery walls is consistently too high. Over time, this can damage your heart and blood vessels.</p>
   </div>
 
-  <div class="  bg-surface-container-low rounded-xl p-container-margin border border-primary flex flex-col gap-stack-sm">
+  <div class="  bg-surface-container-low rounded-xl p-container-margin border border-primary shadow-sm flex flex-col gap-stack-sm">
     <div class="w-12 h-12 bg-primary-container text-on-primary-container rounded-full flex items-center justify-center mb-2">
       <span class="material-symbols-outlined" data-weight="fill">visibility</span>
     </div>
@@ -28,8 +29,8 @@
   <h2 class="font-headline-md text-headline-md text-primary">What Happens If It's Left Uncontrolled?</h2>
   <p class="font-body-md text-body-md text-on-surface-variant max-w-2xl">Uncontrolled high blood pressure quietly damages your body over time, even without symptoms. Here's what's at risk.</p>
 
-  <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
-    <div class="  bg-surface-container-low rounded-xl p-6 border border-primary flex flex-col gap-3">
+  <div class="relative grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 rounded-3xl p-4 md:p-6 -mx-4 md:-mx-6 bg-gradient-to-b from-primary-container/10 via-surface-container-low/40 to-surface/0">
+    <div class="  bg-surface-container-low rounded-xl p-6 border border-primary shadow-sm flex flex-col gap-3">
       <div class="w-12 h-12 bg-error-container text-on-error-container rounded-full flex items-center justify-center">
         <span class="material-symbols-outlined" data-weight="fill">cardiology</span>
       </div>
@@ -37,7 +38,7 @@
       <p class="font-body-md text-body-md text-on-surface-variant">Constant high pressure forces the heart to work harder, thickening and weakening it over time.</p>
     </div>
 
-    <div class="  bg-surface-container-low rounded-xl p-6 border border-primary flex flex-col gap-3">
+    <div class="  bg-surface-container-low rounded-xl p-6 border border-primary shadow-sm flex flex-col gap-3">
       <div class="w-12 h-12 bg-error-container text-on-error-container rounded-full flex items-center justify-center">
         <span class="material-symbols-outlined" data-weight="fill">neurology</span>
       </div>
@@ -45,7 +46,7 @@
       <p class="font-body-md text-body-md text-on-surface-variant">High blood pressure can burst or block blood vessels supplying the brain, cutting off oxygen.</p>
     </div>
 
-    <div class="  bg-surface-container-low rounded-xl p-6 border border-primary flex flex-col gap-3">
+    <div class="  bg-surface-container-low rounded-xl p-6 border border-primary shadow-sm flex flex-col gap-3">
       <div class="w-12 h-12 bg-error-container text-on-error-container rounded-full flex items-center justify-center">
         <span class="material-symbols-outlined" data-weight="fill">water_drop</span>
       </div>
@@ -53,7 +54,7 @@
       <p class="font-body-md text-body-md text-on-surface-variant">Blood vessels in the kidneys weaken over time, reducing their ability to filter waste properly.</p>
     </div>
 
-    <div class="  bg-surface-container-low rounded-xl p-6 border border-primary flex flex-col gap-3">
+    <div class="  bg-surface-container-low rounded-xl p-6 border border-primary shadow-sm flex flex-col gap-3">
       <div class="w-12 h-12 bg-error-container text-on-error-container rounded-full flex items-center justify-center">
         <span class="material-symbols-outlined" data-weight="fill">visibility</span>
       </div>
@@ -184,26 +185,6 @@
         <p class="font-body-md text-body-md text-on-surface-variant">Umupo nang tahimik sa loob ng 5 minuto bago magsukat, huwag mag-usap o gumalaw, itapat ang braso sa antas ng puso, at iwasang uminom ng kape o manigarilyo 30 minuto bago magsukat.</p>
       </div>
     </div>
-
-    <!-- <div class="bg-surface-container-low border border-primary rounded-xl overflow-hidden" data-faq-item>
-      <button type="button" class="w-full flex items-center justify-between gap-4 p-6 text-left" data-faq-toggle>
-        <span class="font-headline-md text-body-lg font-semibold text-primary">Ano ang DASH diet?</span>
-        <span class="material-symbols-outlined text-primary shrink-0 transition-transform duration-200" data-faq-icon>expand_more</span>
-      </button>
-      <div class="hidden px-6 pb-6" data-faq-answer>
-        <p class="font-body-md text-body-md text-on-surface-variant">Ang DASH (Dietary Approaches to Stop Hypertension) ay isang paraan ng pagkain na nakatuon sa gulay, prutas, whole grains, at pagbabawas ng asin, para tumulong sa pagpapababa ng blood pressure.</p>
-      </div>
-    </div> -->
-
-    <!-- <div class="bg-surface-container-low border border-primary rounded-xl overflow-hidden" data-faq-item>
-      <button type="button" class="w-full flex items-center justify-between gap-4 p-6 text-left" data-faq-toggle>
-        <span class="font-headline-md text-body-lg font-semibold text-primary">Saan napupunta ang mga BP records ko?</span>
-        <span class="material-symbols-outlined text-primary shrink-0 transition-transform duration-200" data-faq-icon>expand_more</span>
-      </button>
-      <div class="hidden px-6 pb-6" data-faq-answer>
-        <p class="font-body-md text-body-md text-on-surface-variant">Naka-save lang ang mga ito sa iyong sariling device (localStorage) — hindi ito ipinapadala saanmang server. Kung mag-clear ka ng browser data o gumamit ng ibang device, mabubura ang mga naitalang reading.</p>
-      </div>
-    </div> -->
 
     <div class="bg-surface-container-low border border-primary rounded-xl overflow-hidden" data-faq-item>
       <button type="button" class="w-full flex items-center justify-between gap-4 p-6 text-left" data-faq-toggle>
