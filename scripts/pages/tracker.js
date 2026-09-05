@@ -26,10 +26,10 @@ function getBpStatus(systolic, diastolic) {
     return { label: "Crisis", icon: "priority_high", classes: "bg-error text-on-error" };
   }
   if (systolic >= 140 || diastolic >= 90) {
-    return { label: "High", icon: "priority_high", classes: "bg-error-container text-on-error-container" };
+    return { label: "High (Stage 2)", icon: "priority_high", classes: "bg-error text-on-error" };
   }
   if (systolic >= 130 || diastolic >= 80) {
-    return { label: "High", icon: "warning", classes: "bg-error-container text-on-error-container" };
+    return { label: "High (Stage 1)", icon: "warning", classes: "bg-error-container text-on-error-container" };
   }
   // Hypotension — checked after high tiers so an unusual combo (e.g. low
   // systolic with elevated diastolic) still flags the higher-risk side
@@ -142,12 +142,6 @@ function buildDashHtml(cfg) {
       <span>${d}</span>
     </li>`).join("");
 
-  const mealRows = cfg.meals.map((m) => `
-    <div class="flex items-start gap-3">
-      <span class="material-symbols-outlined text-lg text-primary shrink-0">${m.icon}</span>
-      <div><span class="font-label-caps text-label-caps text-on-surface">${m.label}:</span> <span>${m.text}</span></div>
-    </div>`).join("");
-
   const chartGood = cfg.chartGood.map((f) => `
     <span class="inline-flex items-center gap-1 bg-secondary-container text-on-secondary-container px-2 py-1 rounded-full text-xs">
       <span class="material-symbols-outlined text-[14px]">check</span>${f}
@@ -161,7 +155,7 @@ function buildDashHtml(cfg) {
   return `
     <p>${cfg.intro}</p>
 
-    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-1">
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-6">
       <div>
         <p class="font-label-caps text-label-caps text-[#2e7d32] mb-2">GAWIN</p>
         <ul class="flex flex-col gap-2 text-sm">${doItems}</ul>
@@ -172,18 +166,157 @@ function buildDashHtml(cfg) {
       </div>
     </div>
 
-    <div class="mt-2">
-      <p class="font-label-caps text-label-caps text-primary mb-2">HALIMBAWANG MEAL PLAN</p>
-      <div class="flex flex-col gap-3 text-sm bg-surface-container-low rounded-lg p-4 border border-outline-variant">
-        ${mealRows}
-      </div>
-    </div>
+    ${cfg.showSodiumGuidance ? buildDashServingHtml() : ""}
 
-    <div class="mt-2">
+    ${cfg.showSodiumGuidance ? buildSodiumTipsHtml() : ""}
+
+    ${cfg.meals && cfg.meals.length ? buildMealPlanHtml(cfg.meals) : ""}
+
+    <div class="mt-6">
       <p class="font-label-caps text-label-caps text-on-surface-variant mb-2">MABILIS NA GUIDE</p>
       <div class="flex flex-wrap gap-2">${chartGood}${chartBad}</div>
     </div>
   `;
+}
+
+/* Sample meal plan (Almusal/Tanghalian/Meryenda/Hapunan) — authored per
+   category in ELEVATED_CONFIG/HIGH_CONFIG/LOW_CONFIG. Rendered after the
+   DASH serving-size table and sodium limits section so the concrete meal
+   examples follow the numbers and limits they're built from. */
+function buildMealPlanHtml(meals) {
+  const rows = meals.map((m, i) => `
+    <div class="flex items-start gap-3 px-4 py-3 ${i < meals.length - 1 ? "border-b border-outline-variant" : ""}">
+      <span class="material-symbols-outlined text-[18px] text-primary shrink-0 mt-0.5">${m.icon}</span>
+      <p class="text-sm leading-relaxed">
+        <span class="font-semibold text-on-surface">${m.label}:</span>
+        <span class="text-on-surface-variant">${m.text}</span>
+      </p>
+    </div>`).join("");
+
+  return `
+    <div class="mt-6">
+      <p class="font-label-caps text-label-caps text-on-surface-variant mb-2">SAMPLE MEAL PLAN</p>
+      <div class="bg-surface-container-low border border-outline-variant rounded-xl overflow-hidden">${rows}</div>
+    </div>`;
+}
+
+/* Shared DASH serving-size table + sodium guidance, shown for
+   Elevated and High (not Low — hypotension guidance is unrelated
+   to sodium restriction). Counts sourced from the client's revisions
+   doc (1,800–2,000-cal/day reference plan). servingSize definitions added
+   from the client's own NHLBI "What's on Your Plate?" PDFs (1,200 /
+   1,400-1,600 / 1,800-2,000 / 2,600 cal) — these definitions are
+   identical across all four calorie tiers, only the daily/weekly
+   COUNT changes per tier, so they're safe to use regardless of which
+   calorie link the user ultimately follows. Sodium has no serving
+   size (it's a limit, not a food group serving). */
+const DASH_SERVING_TABLE = [
+  { group: "Grains", amount: "6–8", period: "araw-araw", servingSize: "1 slice tinapay, 1 oz dry cereal, o ½ cup lutong kanin/pasta/cereal" },
+  { group: "Gulay (Vegetables)", amount: "4–5", period: "araw-araw", servingSize: "1 cup sariwang dahon, ½ cup hiniwang gulay (raw o luto), o ½ cup vegetable juice" },
+  { group: "Prutas (Fruit)", amount: "4–5", period: "araw-araw", servingSize: "1 katamtamang prutas, ¼ cup dried fruit, o ½ cup fresh/frozen/de-latang prutas o juice" },
+  { group: "Low-fat o fat-free dairy", amount: "2–3", period: "araw-araw", servingSize: "1 cup gatas, 1 cup yogurt, o 1½ oz keso" },
+  { group: "Karne, manok, at isda", amount: "6 pababa", period: "araw-araw", servingSize: "1 oz lutong karne/isda/manok, o 1 itlog" },
+  { group: "Mantika at taba", amount: "2–3", period: "araw-araw", servingSize: "1 tsp margarine, 1 tsp mantika, 1 tbsp mayonnaise, o 2 tbsp salad dressing" },
+  { group: "Sodium", amount: "2,300mg (1,500mg para mas malaking bawas sa BP)", period: "araw-araw", servingSize: null },
+  { group: "Mani, buto, dry beans, at monggo", amount: "4–5", period: "lingguhan", servingSize: "⅓ cup o 1½ oz mani (unsalted), 2 tbsp peanut butter, 2 tbsp buto, o ½ cup lutong beans" },
+  { group: "Matamis", amount: "5 pababa", period: "lingguhan", servingSize: "1 tbsp asukal, 1 tbsp jam, ½ cup sorbet/gulaman, o 1 cup lemonade" }
+];
+
+const DASH_CALORIE_LINKS = [
+  { label: "1,200 calories/araw", url: "https://www.nhlbi.nih.gov/resources/whats-your-plate-1200-caloriesday" },
+  { label: "1,400–1,600 calories/araw", url: "https://www.nhlbi.nih.gov/resources/whats-your-plate-1400-1600-caloriesday" },
+  { label: "1,800–2,000 calories/araw", url: "https://www.nhlbi.nih.gov/resources/whats-your-plate-1800-2000-caloriesday" },
+  { label: "2,600 calories/araw", url: "https://www.nhlbi.nih.gov/resources/whats-your-plate-2600-caloriesday" }
+];
+
+const SODIUM_TIPS = {
+  shopping: [
+    "Basahin ang food labels — pumili ng mas mababa sa sodium/asin, lalo na sa convenience foods at condiments",
+    "Pumili ng sariwang manok, isda, at lean meat kaysa cured tulad ng bacon at ham",
+    "Sariwa o frozen na prutas at gulay kaysa de-lata",
+    "Iwasan ang mga pagkaing may dagdag na asin tulad ng pickles, olives, at sauerkraut",
+    "Iwasan ang instant o flavored rice at pasta"
+  ],
+  cooking: [
+    "Huwag magdagdag ng asin kapag nagluluto ng kanin, pasta, o hot cereal",
+    "Gumamit ng salt-free seasoning, sariwa o dried herbs at spices, o kalamansi/lemon juice",
+    "Banlawan ang de-latang pagkain o mga naka-brine bago lutuin",
+    "Bawasan ang asin na idinaragdag sa luto"
+  ],
+  eatingOut: [
+    "Hilingin na lutuin nang walang dagdag na asin o MSG",
+    "Iwasan ang mga menu item na maalat tulad ng bacon, pickles, olives, at cheese",
+    "Iwasan ang pickled, cured, smoked, o may toyo/broth na pagkain",
+    "Pumili ng prutas o gulay bilang side dish kaysa chips o fries"
+  ]
+};
+
+function buildDashServingHtml() {
+  const rows = DASH_SERVING_TABLE.map((r) => `
+    <tr class="border-b border-outline-variant">
+      <td class="py-2 pr-2">${r.group}</td>
+      <td class="py-2 pr-2 font-medium">${r.amount}</td>
+      <td class="py-2 text-on-surface-variant whitespace-nowrap">${r.period}</td>
+    </tr>`).join("");
+
+  const links = DASH_CALORIE_LINKS.map((l) => `
+    <a href="${l.url}" target="_blank" rel="noopener" class="text-primary underline text-xs hover:text-secondary transition-colors">${l.label}</a>`).join("");
+
+  const servingSizeRows = DASH_SERVING_TABLE
+    .filter((r) => r.servingSize)
+    .map((r) => `
+      <li class="flex flex-col gap-0.5">
+        <span class="font-medium text-on-surface">${r.group}</span>
+        <span class="text-on-surface-variant">${r.servingSize}</span>
+      </li>`).join("");
+
+  return `
+    <div class="mt-6">
+      <p class="font-label-caps text-label-caps text-primary mb-2">DASH SERVING SIZES (1,800–2,000 cal/araw)</p>
+      <div class="overflow-x-auto">
+        <table class="w-full text-sm text-left">
+          <thead>
+            <tr class="text-on-surface-variant font-label-caps text-[11px]">
+              <th class="pb-1 pr-2">Food Group</th>
+              <th class="pb-1 pr-2">Servings</th>
+              <th class="pb-1 whitespace-nowrap">Kailan</th>
+            </tr>
+          </thead>
+          <tbody>${rows}</tbody>
+        </table>
+      </div>
+      <p class="text-xs text-on-surface-variant mt-6">Iba-iba ang kailangan mong serving depende sa iyong pang-araw-araw na calorie needs:</p>
+      <div class="flex flex-wrap gap-x-3 gap-y-1 mt-1">${links}</div>
+
+      <div class="mt-6">
+        <p class="font-label-caps text-label-caps text-primary">ANO ANG 1 SERVING?</p>
+        <ul class="grid grid-cols-1 sm:grid-cols-2 gap-2 mt-2 text-xs pl-1">${servingSizeRows}</ul>
+      </div>
+    </div>`;
+}
+
+function buildSodiumTipsHtml() {
+  const tipList = (items) => items.map((t) => `<li class="flex items-start gap-2"><span class="material-symbols-outlined text-[14px] text-primary shrink-0 mt-0.5">chevron_right</span><span>${t}</span></li>`).join("");
+
+  return `
+    <div class="mt-6">
+      <p class="font-label-caps text-label-caps text-primary mb-2">SODIUM LIMITS</p>
+      <p class="text-sm">Karaniwang limitasyon: <span class="font-medium">2,300mg</span> ng sodium kada araw (mga 1 kutsaritang asin). Para sa mas malaking bawas sa BP: <span class="font-medium">1,500mg</span> kada araw.</p>
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 mt-3 text-xs">
+        <div>
+          <p class="font-label-caps text-label-caps text-on-surface-variant mb-1 min-h-10 text-center">SHOPPING</p>
+          <ul class="flex flex-col gap-1">${tipList(SODIUM_TIPS.shopping)}</ul>
+        </div>
+        <div>
+          <p class="font-label-caps text-label-caps text-on-surface-variant mb-1 min-h-10 text-center">PAGLULUTO</p>
+          <ul class="flex flex-col gap-1">${tipList(SODIUM_TIPS.cooking)}</ul>
+        </div>
+        <div>
+          <p class="font-label-caps text-label-caps text-on-surface-variant mb-1 min-h-10 text-center">KAPAG KUMAKAIN SA LABAS</p>
+          <ul class="flex flex-col gap-1">${tipList(SODIUM_TIPS.eatingOut)}</ul>
+        </div>
+      </div>
+    </div>`;
 }
 
 const ELEVATED_CONFIG = {
@@ -207,7 +340,8 @@ const ELEVATED_CONFIG = {
     { icon: "dinner_dining", label: "Hapunan", text: "Inihaw na manok, ensaladang gulay, kanin" }
   ],
   chartGood: ["Malunggay", "Kalabasa", "Sitaw", "Saging", "Kamatis", "Tilapia", "Bangus", "Mani (unsalted)"],
-  chartBad: ["Instant noodles", "Corned beef", "Sardinas", "Softdrinks", "Chichirya", "Toyo (sobra)"]
+  chartBad: ["Instant noodles", "Corned beef", "Sardinas", "Softdrinks", "Chichirya", "Toyo (sobra)"],
+  showSodiumGuidance: true
 };
 
 const HIGH_CONFIG = {
@@ -231,7 +365,8 @@ const HIGH_CONFIG = {
     { icon: "dinner_dining", label: "Hapunan", text: "Inihaw na isda o manok (walang toyo), maraming gulay" }
   ],
   chartGood: ["Malunggay", "Ampalaya", "Kalabasa", "Saging", "Tilapia", "Bangus", "Dalag", "Mani (unsalted)"],
-  chartBad: ["Tuyo", "Bagoong", "Hotdog", "Longganisa", "Tocino", "Corned beef", "Softdrinks", "Alak"]
+  chartBad: ["Tuyo", "Bagoong", "Hotdog", "Longganisa", "Tocino", "Corned beef", "Softdrinks", "Alak"],
+  showSodiumGuidance: true
 };
 
 /* Draft copy — client's revisions doc only lists a "HYPOTENSION" heading
@@ -243,7 +378,7 @@ const LOW_CONFIG = {
   dos: [
     "Tumayo nang dahan-dahan mula sa pagkakahiga o pagkakaupo",
     "Uminom ng sapat na tubig araw-araw",
-    "Kumain nang regular, huwag nang huwag magpalampas ng kanin",
+    "Kumain nang regular, huwag magpalampas ng kanin",
     "Magpahinga at umupo agad kung nahihilo o nanghihina"
   ],
   donts: [
@@ -259,7 +394,8 @@ const LOW_CONFIG = {
     { icon: "dinner_dining", label: "Hapunan", text: "Regular na kainan, huwag paglaktawan" }
   ],
   chartGood: ["Sabaw", "Prutas", "Tubig", "Regular na kainan", "Itlog"],
-  chartBad: ["Biglaang pagtayo", "Mahabang pagtayo", "Alak", "Paglaktaw ng kainan"]
+  chartBad: ["Biglaang pagtayo", "Mahabang pagtayo", "Alak", "Paglaktaw ng kainan"],
+  showSodiumGuidance: false
 };
 
 const DASH_CONTENT = {
@@ -268,7 +404,12 @@ const DASH_CONTENT = {
     body: buildDashHtml(ELEVATED_CONFIG),
     pdf: "assets/dash-pdf-files/dash-elevated.pdf"
   },
-  High: {
+  "High (Stage 1)": {
+    title: "DASH Diet — Kailangan Mo Ito",
+    body: buildDashHtml(HIGH_CONFIG),
+    pdf: "assets/dash-pdf-files/dash-high.pdf"
+  },
+  "High (Stage 2)": {
     title: "DASH Diet — Kailangan Mo Ito",
     body: buildDashHtml(HIGH_CONFIG),
     pdf: "assets/dash-pdf-files/dash-high.pdf"
@@ -276,9 +417,21 @@ const DASH_CONTENT = {
   Low: {
     title: "Alagaan ang Mababang BP",
     body: buildDashHtml(LOW_CONFIG),
-    pdf: null // no downloadable guide yet for hypotension
+    pdf: "assets/dash-pdf-files/dash-low.pdf"
   }
 };
+
+/* 3a0. SCROLL RESET HELPER
+   Each modal's inner content box (max-h-[85vh] overflow-y-auto) is
+   toggled via the "hidden" class rather than rebuilt, so the browser
+   remembers wherever the user last scrolled it. Without this, reopening
+   a modal after scrolling down in a previous one jumps straight back
+   to that old scroll position instead of starting at the top. */
+function resetModalScroll(overlay) {
+  if (!overlay) return;
+  const scrollable = overlay.firstElementChild;
+  if (scrollable) scrollable.scrollTop = 0;
+}
 
 function openDashModal(category, systolic, diastolic) {
   const overlay = document.getElementById("dash-modal-overlay");
@@ -307,6 +460,7 @@ function openDashModal(category, systolic, diastolic) {
   }
 
   overlay.classList.remove("hidden");
+  resetModalScroll(overlay);
 }
 
 function closeDashModal() {
@@ -322,6 +476,7 @@ function openCrisisModal(systolic, diastolic) {
   document.querySelector("[data-crisis-reading]").textContent = `${systolic} / ${diastolic}`;
 
   overlay.classList.remove("hidden");
+  resetModalScroll(overlay);
   drawAttentionToUrgentCard("[data-urgent-card]");
 }
 
@@ -342,6 +497,7 @@ function openSevereLowModal(systolic, diastolic) {
   document.querySelector("[data-severe-low-reading]").textContent = `${systolic} / ${diastolic}`;
 
   overlay.classList.remove("hidden");
+  resetModalScroll(overlay);
   drawAttentionToUrgentCard("[data-urgent-card-low]");
 }
 
@@ -366,6 +522,7 @@ function openNormalModal(systolic, diastolic) {
   badge.className = `ml-auto inline-flex items-center gap-1 px-3 py-1 rounded-full text-xs font-label-caps ${status.classes}`;
 
   overlay.classList.remove("hidden");
+  resetModalScroll(overlay);
 }
 
 function closeNormalModal() {
@@ -395,17 +552,10 @@ function initBpForm() {
   const clearHistoryBtn = document.querySelector("[data-clear-history]");
 
   const crisisModalClose = document.getElementById("crisis-modal-close");
-  const crisisModalOverlay = document.getElementById("crisis-modal-overlay");
-
   const severeLowModalClose = document.getElementById("severe-low-modal-close");
-  const severeLowModalOverlay = document.getElementById("severe-low-modal-overlay");
-
   const dashModalClose = document.getElementById("dash-modal-close");
-  const dashModalOverlay = document.getElementById("dash-modal-overlay");
   const dashDownloadLink = document.getElementById("dash-download-link");
-
   const normalModalClose = document.getElementById("normal-modal-close");
-  const normalModalOverlay = document.getElementById("normal-modal-overlay");
 
   form.addEventListener("submit", (e) => {
     e.preventDefault();
@@ -425,7 +575,7 @@ function initBpForm() {
 
     if (status.label === "Normal") {
       openNormalModal(systolic, diastolic);
-    } else if (status.label === "Elevated" || status.label === "High" || status.label === "Low") {
+    } else if (status.label === "Elevated" || status.label === "High (Stage 1)" || status.label === "High (Stage 2)" || status.label === "Low") {
       openDashModal(status.label, systolic, diastolic);
     } else if (status.label === "Crisis") {
       openCrisisModal(systolic, diastolic);
@@ -438,30 +588,12 @@ function initBpForm() {
     crisisModalClose.addEventListener("click", closeCrisisModal);
   }
 
-  if (crisisModalOverlay) {
-    crisisModalOverlay.addEventListener("click", (e) => {
-      if (e.target === crisisModalOverlay) closeCrisisModal();
-    });
-  }
-
   if (severeLowModalClose) {
     severeLowModalClose.addEventListener("click", closeSevereLowModal);
   }
 
-  if (severeLowModalOverlay) {
-    severeLowModalOverlay.addEventListener("click", (e) => {
-      if (e.target === severeLowModalOverlay) closeSevereLowModal();
-    });
-  }
-
   if (normalModalClose) {
     normalModalClose.addEventListener("click", closeNormalModal);
-  }
-
-  if (normalModalOverlay) {
-    normalModalOverlay.addEventListener("click", (e) => {
-      if (e.target === normalModalOverlay) closeNormalModal();
-    });
   }
 
   if (dashModalClose) {
@@ -475,15 +607,6 @@ function initBpForm() {
     dashDownloadLink.addEventListener("click", () => {
       // Leave modal open — user may want to re-read guidance after
       // downloading. They close it manually via dashModalClose.
-    });
-  }
-
-  if (dashModalOverlay) {
-    dashModalOverlay.addEventListener("click", (e) => {
-      if (e.target === dashModalOverlay) {
-        closeDashModal();
-        form.reset();
-      }
     });
   }
 

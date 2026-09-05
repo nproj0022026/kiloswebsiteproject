@@ -1,110 +1,212 @@
 <!-- Hero Section -->
 <section class="relative flex flex-col gap-stack-sm text-center md:text-left">
   <div aria-hidden="true" class="pointer-events-none absolute -z-10 -top-10 -left-10 md:-left-16 w-[380px] h-[380px] rounded-full bg-primary-container/20 blur-3xl"></div>
-  <h1 class="font-headline-lg-mobile md:font-headline-lg text-headline-lg-mobile md:text-headline-lg text-primary">Understanding Hypertension</h1>
-  <p class="font-body-lg text-body-lg text-on-surface-variant max-w-6xl">Learn about high blood pressure, why it's important to monitor, and how to recognize warning signs to keep your heart healthy.</p>
+  <h1 class="font-headline-lg-mobile md:font-headline-lg text-headline-lg-mobile md:text-headline-lg text-primary">Understanding Hypertension <em class="italic font-normal text-headline-md-mobile md:text-headline-md text-on-surface-variant">(Pag-unawa sa Hypertension)</em></h1>
+  <p class="font-body-lg text-body-lg text-on-surface-variant max-w-6xl"> Alamin ang tungkol sa mataas na presyon ng dugo, kung bakit mahalagang subaybayan ito, at kung paano makilala ang mga babala upang mapanatiling malusog ang iyong puso.</p>
 </section>
 
 <!-- Bento Grid for Concepts -->
-<section class="relative grid grid-cols-1 md:grid-cols-2 gap-container-margin rounded-3xl p-4 md:p-6 -mx-4 md:-mx-6 bg-gradient-to-b from-primary-container/10 via-surface-container-low/40 to-surface/0">
-  <div class="  bg-surface-container-low rounded-xl p-container-margin border border-primary shadow-sm flex flex-col gap-stack-sm">
+<section class="relative grid grid-cols-1 md:grid-cols-2 gap-container-margin items-start rounded-3xl p-4 md:p-6 -mx-4 md:-mx-6 bg-gradient-to-b from-primary-container/10 via-surface-container-low/40 to-surface/0">
+  <div class="  bg-surface-container-low rounded-xl p-container-margin border border-primary shadow-sm flex flex-col gap-stack-sm" data-faq-item>
     <div class="w-12 h-12 bg-primary-container text-on-primary-container rounded-full flex items-center justify-center mb-2">
       <span class="material-symbols-outlined" data-weight="fill">favorite</span>
     </div>
-    <h2 class="font-headline-md text-headline-md text-primary">What is Hypertension?</h2>
-    <p class="font-body-md text-body-md text-on-surface-variant">Hypertension, or high blood pressure, happens when the force of blood pushing against your artery walls is consistently too high. Over time, this can damage your heart and blood vessels.</p>
+
+    <h2 class="font-headline-md text-headline-md text-primary">
+      What is Hypertension?
+      <em class="italic font-normal text-body-lg text-on-surface-variant block">(Ano ang Hypertension?)</em>
+    </h2>
+
+    <p class="font-body-md text-body-md text-on-surface-variant">
+      Hypertension, or high blood pressure, happens when the force of blood pushing against your artery walls is consistently too high. Over time, this can damage your heart and blood vessels.
+      <button type="button" class="italic font-semibold text-primary" data-faq-toggle>
+        Basahin sa Tagalog
+      </button>
+    </p>
+
+    <div class="hidden" data-faq-answer>
+      <p class="font-body-md text-body-md text-on-surface-variant italic">
+        Ang hypertension o mataas na presyon ng dugo ay nangyayari kapag ang puwersa ng dugo laban sa dingding ng ugat ay palaging masyadong mataas. Sa paglipas ng panahon, maaari nitong sirain ang iyong puso at mga daluyan ng dugo.
+      </p>
+    </div>
   </div>
 
-  <div class="  bg-surface-container-low rounded-xl p-container-margin border border-primary shadow-sm flex flex-col gap-stack-sm">
+  <div class="  bg-surface-container-low rounded-xl p-container-margin border border-primary shadow-sm flex flex-col gap-stack-sm" data-faq-item>
     <div class="w-12 h-12 bg-primary-container text-on-primary-container rounded-full flex items-center justify-center mb-2">
       <span class="material-symbols-outlined" data-weight="fill">visibility</span>
     </div>
-    <h2 class="font-headline-md text-headline-md text-primary">Why Monitor Regularly?</h2>
-    <p class="font-body-md text-body-md text-on-surface-variant">High blood pressure often has no symptoms. Regular checking is the only way to know if your levels are safe. Monitoring at home helps your doctor make better decisions about your care.</p>
+
+    <h2 class="font-headline-md text-headline-md text-primary">
+      Why Monitor Regularly?
+      <em class="italic font-normal text-body-lg text-on-surface-variant block">(Bakit Kailangang Regular na Sukatin?)</em>
+    </h2>
+
+    <p class="font-body-md text-body-md text-on-surface-variant">
+      High blood pressure often has no symptoms. Regular checking is the only way to know if your levels are safe. Monitoring at home helps your doctor make better decisions about your care.
+      <button type="button" class="italic font-semibold text-primary" data-faq-toggle>
+        Basahin sa Tagalog
+      </button>
+    </p>
+
+    <div class="hidden" data-faq-answer>
+      <p class="font-body-md text-body-md text-on-surface-variant italic">
+        Ang mataas na presyon ng dugo ay kadalasang walang sintomas. Ang regular na pagsukat ang tanging paraan upang malaman kung ligtas ang iyong antas. Ang pagsubaybay sa bahay ay tumutulong sa iyong doktor na gumawa ng mas mahusay na desisyon para sa iyong pangangalaga.
+      </p>
+    </div>
   </div>
 </section>
 
 <!-- Possible Complications Section -->
-<section class="flex flex-col gap-stack-md">
-  <h2 class="font-headline-md text-headline-md text-primary">What Happens If It's Left Uncontrolled?</h2>
-  <p class="font-body-md text-body-md text-on-surface-variant max-w-2xl">Uncontrolled high blood pressure quietly damages your body over time, even without symptoms. Here's what's at risk.</p>
+<section class="flex flex-col gap-0 ">
+  <div class="flex flex-col gap-2">
+    <h2 class="font-headline-md text-headline-md text-primary">What Happens If It's Left Uncontrolled? <em class="italic font-normal text-body-lg text-on-surface-variant">(Ano ang Mangyayari Kung Hindi Ito Makokontrol?)</em></h2>
+    <p class="font-body-md text-body-md text-on-surface-variant max-w-12xl">Ang hindi nakokontrol na mataas na presyon ng dugo ay tahimik na sumisira sa iyong katawan sa paglipas ng panahon, kahit walang sintomas. Nasa baba ang mga posibleng mangyari.</p>
+  </div>
 
-  <div class="relative grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 rounded-3xl p-4 md:p-6 -mx-4 md:-mx-6 bg-gradient-to-b from-primary-container/10 via-surface-container-low/40 to-surface/0">
-    <div class="  bg-surface-container-low rounded-xl p-6 border border-primary shadow-sm flex flex-col gap-3">
-      <div class="w-12 h-12 bg-error-container text-on-error-container rounded-full flex items-center justify-center">
-        <span class="material-symbols-outlined" data-weight="fill">cardiology</span>
-      </div>
-      <h3 class="font-headline-md text-body-lg font-semibold text-primary">Heart Attack &amp; Heart Failure</h3>
-      <p class="font-body-md text-body-md text-on-surface-variant">Constant high pressure forces the heart to work harder, thickening and weakening it over time.</p>
+<div class="relative items-start grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 rounded-3xl p-4 md:p-6 -mx-4 md:-mx-6 bg-gradient-to-b from-primary-container/10 via-surface-container-low/40 to-surface/0">
+
+  <div class="  bg-surface-container-low rounded-xl p-6 border border-primary shadow-sm flex flex-col gap-3" data-faq-item>
+    <div class="w-12 h-12 bg-error-container text-on-error-container rounded-full flex items-center justify-center">
+      <span class="material-symbols-outlined" data-weight="fill">cardiology</span>
     </div>
-
-    <div class="  bg-surface-container-low rounded-xl p-6 border border-primary shadow-sm flex flex-col gap-3">
-      <div class="w-12 h-12 bg-error-container text-on-error-container rounded-full flex items-center justify-center">
-        <span class="material-symbols-outlined" data-weight="fill">neurology</span>
-      </div>
-      <h3 class="font-headline-md text-body-lg font-semibold text-primary">Stroke</h3>
-      <p class="font-body-md text-body-md text-on-surface-variant">High blood pressure can burst or block blood vessels supplying the brain, cutting off oxygen.</p>
-    </div>
-
-    <div class="  bg-surface-container-low rounded-xl p-6 border border-primary shadow-sm flex flex-col gap-3">
-      <div class="w-12 h-12 bg-error-container text-on-error-container rounded-full flex items-center justify-center">
-        <span class="material-symbols-outlined" data-weight="fill">water_drop</span>
-      </div>
-      <h3 class="font-headline-md text-body-lg font-semibold text-primary">Kidney Damage</h3>
-      <p class="font-body-md text-body-md text-on-surface-variant">Blood vessels in the kidneys weaken over time, reducing their ability to filter waste properly.</p>
-    </div>
-
-    <div class="  bg-surface-container-low rounded-xl p-6 border border-primary shadow-sm flex flex-col gap-3">
-      <div class="w-12 h-12 bg-error-container text-on-error-container rounded-full flex items-center justify-center">
-        <span class="material-symbols-outlined" data-weight="fill">visibility</span>
-      </div>
-      <h3 class="font-headline-md text-body-lg font-semibold text-primary">Vision Loss</h3>
-      <p class="font-body-md text-body-md text-on-surface-variant">Damaged blood vessels in the eyes can lead to blurred vision or permanent vision loss.</p>
+    <h3 class="font-headline-md text-body-lg font-semibold text-primary">
+      Heart Attack &amp; Heart Failure
+      <em class="italic font-normal block text-sm text-on-surface-variant">(Atake sa Puso at Pagpalya ng Puso)</em>
+    </h3>
+    <p class="font-body-md text-body-md text-on-surface-variant">
+      Constant high pressure forces the heart to work harder, thickening and weakening it over time.
+      <button type="button" class="italic font-semibold text-primary" data-faq-toggle>
+        Basahin sa Tagalog
+      </button>
+    </p>
+    <div class="hidden" data-faq-answer>
+      <p class="font-body-md text-body-md text-on-surface-variant italic">
+        Pinipilit ng patuloy na mataas na presyon ang puso na magtrabaho nang mas mabigat, na nagpapakapal at nagpapahina rito sa paglipas ng panahon.
+      </p>
     </div>
   </div>
+
+  <div class="  bg-surface-container-low rounded-xl p-6 border border-primary shadow-sm flex flex-col gap-3" data-faq-item>
+    <div class="w-12 h-12 bg-error-container text-on-error-container rounded-full flex items-center justify-center">
+      <span class="material-symbols-outlined" data-weight="fill">neurology</span>
+    </div>
+    <h3 class="font-headline-md text-body-lg font-semibold text-primary">
+      Stroke
+      <em class="italic font-normal block text-sm text-on-surface-variant">(Stroke o Atake sa Utak)</em>
+    </h3>
+    <p class="font-body-md text-body-md text-on-surface-variant">
+      High blood pressure can burst or block blood vessels supplying the brain, cutting off oxygen.
+      <button type="button" class="italic font-semibold text-primary" data-faq-toggle>
+        Basahin sa Tagalog
+      </button>
+    </p>
+    <div class="hidden" data-faq-answer>
+      <p class="font-body-md text-body-md text-on-surface-variant italic">
+        Ang mataas na presyon ng dugo ay maaaring makasira o makabara sa mga daluyan ng dugo papunta sa utak, na pumuputol sa suplay ng oxygen.
+      </p>
+    </div>
+  </div>
+
+  <div class="  bg-surface-container-low rounded-xl p-6 border border-primary shadow-sm flex flex-col gap-3" data-faq-item>
+    <div class="w-12 h-12 bg-error-container text-on-error-container rounded-full flex items-center justify-center">
+      <span class="material-symbols-outlined" data-weight="fill">water_drop</span>
+    </div>
+    <h3 class="font-headline-md text-body-lg font-semibold text-primary">
+      Kidney Damage
+      <em class="italic font-normal block text-sm text-on-surface-variant">(Pinsala sa Bato)</em>
+    </h3>
+    <p class="font-body-md text-body-md text-on-surface-variant">
+      Blood vessels in the kidneys weaken over time, reducing their ability to filter waste properly.
+      <button type="button" class="italic font-semibold text-primary" data-faq-toggle>
+        Basahin sa Tagalog
+      </button>
+    </p>
+    <div class="hidden" data-faq-answer>
+      <p class="font-body-md text-body-md text-on-surface-variant italic">
+        Humihina ang mga daluyan ng dugo sa bato sa paglipas ng panahon, na nagpapababa sa kakayahan nitong salain nang maayos ang mga dumi.
+      </p>
+    </div>
+  </div>
+
+  <div class="  bg-surface-container-low rounded-xl p-6 border border-primary shadow-sm flex flex-col gap-3" data-faq-item>
+    <div class="w-12 h-12 bg-error-container text-on-error-container rounded-full flex items-center justify-center">
+      <span class="material-symbols-outlined" data-weight="fill">visibility</span>
+    </div>
+    <h3 class="font-headline-md text-body-lg font-semibold text-primary">
+      Vision Loss
+      <em class="italic font-normal block text-sm text-on-surface-variant">(Pagkawala ng Paningin)</em>
+    </h3>
+    <p class="font-body-md text-body-md text-on-surface-variant">
+      Damaged blood vessels in the eyes can lead to blurred vision or permanent vision loss.
+      <button type="button" class="italic font-semibold text-primary" data-faq-toggle>
+        Basahin sa Tagalog
+      </button>
+    </p>
+    <div class="hidden" data-faq-answer>
+      <p class="font-body-md text-body-md text-on-surface-variant italic">
+        Ang sirang daluyan ng dugo sa mata ay maaaring magdulot ng malabong paningin o permanenteng pagkawala ng paningin.
+      </p>
+    </div>
+  </div>
+
+</div>
 </section>
 
 <!-- BP Ranges Table Section -->
-<section class="flex flex-col gap-stack-md">
-  <h2 class="font-headline-md text-headline-md text-primary">Blood Pressure Categories</h2>
-  <p class="font-body-md text-body-md text-on-surface-variant">Use this guide to understand your numbers. The top number is Systolic, and the bottom is Diastolic.</p>
+<section class="flex flex-col gap-0">
+  <div class="flex flex-col mb-6 gap-2">
+    <h2 class="font-headline-md text-headline-md text-primary">Blood Pressure Categories <em class="italic font-normal text-body-lg text-on-surface-variant">(Mga Kategorya ng Presyon ng Dugo)</em></h2>
+    <p class="font-body-md text-body-md text-on-surface-variant">Gamitin ang gabay na ito upang maunawaan ang iyong mga numero. Ang nasa itaas na numero ay Systolic, at ang nasa ibaba ay Diastolic.</p>
+  </div>
   <div class="overflow-x-auto border border-primary rounded-xl bg-surface">
     <table class="w-full text-left border-collapse min-w-[600px]">
       <thead>
         <tr class="  bg-surface-container border-b border-outline-variant sticky top-0">
-          <th class="p-4 font-label-caps text-label-caps text-on-surface">Category</th>
-          <th class="p-4 font-label-caps text-label-caps text-on-surface">Systolic (Top)</th>
+          <th class="p-4 font-label-caps text-label-caps text-on-surface">Category <em class="italic font-normal block normal-case text-xs text-on-surface-variant mt-1">(Kategorya)</em></th>
+          <th class="p-4 font-label-caps text-label-caps text-on-surface">Systolic (Top) <em class="italic font-normal block normal-case text-xs text-on-surface-variant mt-1">(Systolic — Itaas)</em></th>
           <th class="p-4 font-label-caps text-label-caps text-on-surface"></th>
-          <th class="p-4 font-label-caps text-label-caps text-on-surface">Diastolic (Bottom)</th>
+          <th class="p-4 font-label-caps text-label-caps text-on-surface">Diastolic (Bottom) <em class="italic font-normal block normal-case text-xs text-on-surface-variant mt-1">(Diastolic — Ibaba)</em></th>
         </tr>
       </thead>
       <tbody class="font-body-md text-body-md">
+        <tr class="hover:bg-tertiary-fixed transition-colors bg-tertiary-fixed">
+          <td class="p-4 flex items-center gap-2 font-bold text-on-tertiary-fixed"><span class="w-3 h-3 rounded-full bg-tertiary inline-block"></span> Severe Low <em class="italic font-normal text-sm block">(Matinding Kababaan)</em></td>
+          <td class="p-4 font-bold text-on-tertiary-fixed">Less than 70</td>
+          <td class="p-4 text-on-tertiary-fixed font-medium">and/or</td>
+          <td class="p-4 font-bold text-on-tertiary-fixed">Less than 40</td>
+        </tr>
         <tr class="border-b border-outline-variant hover:  bg-surface-container-low transition-colors">
-          <td class="p-4 flex items-center gap-2 font-medium text-secondary"><span class="w-3 h-3 rounded-full bg-primary inline-block"></span> Normal</td>
-          <td class="p-4">Less than 120</td>
+          <td class="p-4 flex items-center gap-2 font-medium text-tertiary"><span class="w-3 h-3 rounded-full bg-tertiary-container inline-block"></span> Low <em class="italic font-normal text-sm text-on-surface-variant block">(Mababa)</em></td>
+          <td class="p-4">70 – 89</td>
+          <td class="p-4 text-on-surface-variant">or</td>
+          <td class="p-4">40 – 59</td>
+        </tr>
+        <tr class="border-b border-outline-variant hover:  bg-surface-container-low transition-colors">
+          <td class="p-4 flex items-center gap-2 font-medium text-secondary"><span class="w-3 h-3 rounded-full bg-primary inline-block"></span> Normal <em class="italic font-normal text-sm text-on-surface-variant block">(Normal)</em></td>
+          <td class="p-4">90 – 119</td>
           <td class="p-4 text-on-surface-variant">and</td>
-          <td class="p-4">Less than 80</td>
+          <td class="p-4">60 – 79</td>
         </tr>
         <tr class="border-b border-outline-variant hover:  bg-surface-container-low transition-colors   bg-surface-container-low">
-          <td class="p-4 flex items-center gap-2 font-medium text-[#f59e0b]"><span class="w-3 h-3 rounded-full bg-[#f59e0b] inline-block"></span> Elevated</td>
+          <td class="p-4 flex items-center gap-2 font-medium text-[#f59e0b]"><span class="w-3 h-3 rounded-full bg-[#f59e0b] inline-block"></span> Elevated <em class="italic font-normal text-sm text-on-surface-variant block">(Bahagyang Mataas)</em></td>
           <td class="p-4">120 – 129</td>
           <td class="p-4 text-on-surface-variant">and</td>
-          <td class="p-4">Less than 80</td>
+          <td class="p-4">60 – 79</td>
         </tr>
         <tr class="border-b border-outline-variant hover:  bg-surface-container-low transition-colors">
-          <td class="p-4 flex items-center gap-2 font-medium text-[#d97706]"><span class="w-3 h-3 rounded-full bg-[#d97706] inline-block"></span> High (Stage 1)</td>
+          <td class="p-4 flex items-center gap-2 font-medium text-[#d97706]"><span class="w-3 h-3 rounded-full bg-[#d97706] inline-block"></span> High (Stage 1) <em class="italic font-normal text-sm text-on-surface-variant block">(Mataas — Yugto 1)</em></td>
           <td class="p-4">130 – 139</td>
           <td class="p-4 text-on-surface-variant">or</td>
           <td class="p-4">80 – 89</td>
         </tr>
         <tr class="border-b border-outline-variant hover:  bg-surface-container-low transition-colors   bg-surface-container-low">
-          <td class="p-4 flex items-center gap-2 font-medium text-[#b45309]"><span class="w-3 h-3 rounded-full bg-[#b45309] inline-block"></span> High (Stage 2)</td>
-          <td class="p-4">140 or higher</td>
+          <td class="p-4 flex items-center gap-2 font-medium text-[#b45309]"><span class="w-3 h-3 rounded-full bg-[#b45309] inline-block"></span> High (Stage 2) <em class="italic font-normal text-sm text-on-surface-variant block">(Mataas — Yugto 2)</em></td>
+          <td class="p-4">140 – 180</td>
           <td class="p-4 text-on-surface-variant">or</td>
-          <td class="p-4">90 or higher</td>
+          <td class="p-4">90 – 120</td>
         </tr>
         <tr class="hover:bg-error-container transition-colors bg-error-container">
-          <td class="p-4 flex items-center gap-2 font-bold text-on-error-container"><span class="w-3 h-3 rounded-full bg-error inline-block"></span> Hypertensive Crisis</td>
+          <td class="p-4 flex items-center gap-2 font-bold text-on-error-container"><span class="w-3 h-3 rounded-full bg-error inline-block"></span> Hypertensive Crisis <em class="italic font-normal text-sm block">(Matinding Krisis sa Presyon ng Dugo)</em></td>
           <td class="p-4 font-bold text-on-error-container">Higher than 180</td>
           <td class="p-4 text-on-error-container font-medium">and/or</td>
           <td class="p-4 font-bold text-on-error-container">Higher than 120</td>
@@ -112,48 +214,195 @@
       </tbody>
     </table>
   </div>
-  <p class="font-body-sm text-sm text-on-surface-variant mt-2">* Always consult your healthcare provider to understand your specific target range.</p>
+  <p class="font-body-sm text-sm text-on-surface-variant mt-2">* Always consult your healthcare provider to understand your specific target range. <em class="italic block mt-1">(* Palaging kumonsulta sa iyong healthcare provider upang maunawaan ang tamang target range para sa iyo.)</em></p>
 </section>
 
 <!-- Warning Signs Section -->
 <section class="flex flex-col gap-stack-md   bg-surface-container-low p-container-margin rounded-xl border border-primary border-l-4 border-l-error">
   <div class="flex items-center gap-3">
     <span class="material-symbols-outlined text-error text-3xl" data-weight="fill">warning</span>
-    <h2 class="font-headline-md text-headline-md text-primary">Severe Warning Signs</h2>
+    <h2 class="font-headline-md text-headline-md text-primary">Severe Warning Signs <em class="italic font-normal text-body-lg text-on-surface-variant">(Malubhang mga Babala)</em></h2>
   </div>
-  <p class="font-body-md text-body-md text-on-surface-variant">If your blood pressure reading is in the Crisis category (180/120 or higher) AND you experience any of these symptoms, seek emergency medical help immediately.</p>
+  <p class="font-body-md text-body-md text-on-surface-variant">If your blood pressure reading is in the Crisis category (180/120 or higher) AND you experience any of these symptoms, seek emergency medical help immediately. <em class="italic block mt-1">(Kung ang iyong reading ng presyon ng dugo ay nasa kategoryang Crisis (180/120 o mas mataas) AT nakakaranas ka ng alinman sa mga sintomas na ito, humingi kaagad ng agarang tulong medikal.)</em></p>
   <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mt-4">
     <div class="flex flex-col items-center text-center p-4 bg-surface rounded-lg border border-primary shadow-sm">
       <div class="w-12 h-12 rounded-full bg-[#fde68a] flex items-center justify-center mb-2">
         <span class="material-symbols-outlined text-[#92400e] text-2xl">sentiment_dissatisfied</span>
       </div>
-      <span class="font-body-md text-body-md font-medium text-primary">Severe Headache</span>
+      <span class="font-body-md text-body-md font-medium text-primary">Severe Headache <em class="italic font-normal block text-xs text-on-surface-variant mt-1">(Matinding Sakit ng Ulo)</em></span>
     </div>
     <div class="flex flex-col items-center text-center p-4 bg-surface rounded-lg border border-primary shadow-sm">
       <div class="w-12 h-12 rounded-full bg-error-container flex items-center justify-center mb-2">
         <span class="material-symbols-outlined text-on-error-container text-2xl">monitor_heart</span>
       </div>
-      <span class="font-body-md text-body-md font-medium text-primary">Chest Pain</span>
+      <span class="font-body-md text-body-md font-medium text-primary">Chest Pain <em class="italic font-normal block text-xs text-on-surface-variant mt-1">(Pananakit ng Dibdib)</em></span>
     </div>
     <div class="flex flex-col items-center text-center p-4 bg-surface rounded-lg border border-primary shadow-sm">
       <div class="w-12 h-12 rounded-full bg-[#ddd6fe] flex items-center justify-center mb-2">
         <span class="material-symbols-outlined text-[#5b21b6] text-2xl">visibility_off</span>
       </div>
-      <span class="font-body-md text-body-md font-medium text-primary">Vision Changes</span>
+      <span class="font-body-md text-body-md font-medium text-primary">Vision Changes <em class="italic font-normal block text-xs text-on-surface-variant mt-1">(Pagbabago sa Paningin)</em></span>
     </div>
     <div class="flex flex-col items-center text-center p-4 bg-surface rounded-lg border border-primary shadow-sm">
       <div class="w-12 h-12 rounded-full bg-[#bae6fd] flex items-center justify-center mb-2">
         <span class="material-symbols-outlined text-[#075985] text-2xl">air</span>
       </div>
-      <span class="font-body-md text-body-md font-medium text-primary">Shortness of Breath</span>
+      <span class="font-body-md text-body-md font-medium text-primary">Shortness of Breath <em class="italic font-normal block text-xs text-on-surface-variant mt-1">(Hirap sa Paghinga)</em></span>
     </div>
   </div>
 </section>
 
+<!-- Myths about Hypertension Section (PLACEHOLDER — awaiting client content) -->
+<section class="flex flex-col gap-0">
+  <div class="flex flex-col gap-2">
+    <h2 class="font-headline-md text-headline-md text-primary">Myths about Hypertension <em class="italic font-normal text-body-lg text-on-surface-variant">(Mga Maling Paniniwala Tungkol sa Hypertension)</em></h2>
+    <p class="font-body-md text-body-md text-on-surface-variant max-w-12xl">Marami tayong naririnig na kuwento tungkol sa hypertension — hindi lahat ng ito ay totoo. Nasa baba ang paglilinaw sa ilang karaniwang maling paniniwala.</p>
+  </div>
+
+  <div class="relative items-start grid grid-cols-1 md:grid-cols-2 gap-4 rounded-3xl p-4 md:p-6 -mx-4 md:-mx-6 bg-gradient-to-b from-primary-container/10 via-surface-container-low/40 to-surface/0">
+
+    <!-- Myths Card (left column) -->
+    <div class="bg-surface-container-low rounded-xl border border-primary shadow-sm flex flex-col divide-y divide-outline-variant">
+      <div class="flex items-center gap-2 p-6 pb-4">
+        <div class="w-9 h-9 bg-error-container text-on-error-container rounded-full flex items-center justify-center shrink-0">
+          <span class="material-symbols-outlined text-lg" data-weight="fill">close</span>
+        </div>
+        <h3 class="font-headline-md text-body-lg font-semibold text-primary">Myth <em class="italic font-normal text-sm text-on-surface-variant">(Maling Paniniwala)</em></h3>
+      </div>
+
+      <div class="flex flex-col gap-2 p-6" data-faq-item>
+        <p class="font-body-md text-body-md text-on-surface-variant">
+          [Placeholder myth text]
+          <button type="button" class="italic font-semibold text-primary block mt-1" data-faq-toggle>
+            Basahin sa Tagalog
+          </button>
+        </p>
+        <div class="hidden" data-faq-answer>
+          <p class="font-body-md text-body-md text-on-surface-variant italic">
+            [Placeholder sa Tagalog]
+          </p>
+        </div>
+      </div>
+
+      <div class="flex flex-col gap-2 p-6" data-faq-item>
+        <p class="font-body-md text-body-md text-on-surface-variant">
+          [Placeholder myth text]
+          <button type="button" class="italic font-semibold text-primary block mt-1" data-faq-toggle>
+            Basahin sa Tagalog
+          </button>
+        </p>
+        <div class="hidden" data-faq-answer>
+          <p class="font-body-md text-body-md text-on-surface-variant italic">
+            [Placeholder sa Tagalog]
+          </p>
+        </div>
+      </div>
+
+      <div class="flex flex-col gap-2 p-6" data-faq-item>
+        <p class="font-body-md text-body-md text-on-surface-variant">
+          [Placeholder myth text]
+          <button type="button" class="italic font-semibold text-primary block mt-1" data-faq-toggle>
+            Basahin sa Tagalog
+          </button>
+        </p>
+        <div class="hidden" data-faq-answer>
+          <p class="font-body-md text-body-md text-on-surface-variant italic">
+            [Placeholder sa Tagalog]
+          </p>
+        </div>
+      </div>
+
+      <div class="flex flex-col gap-2 p-6" data-faq-item>
+        <p class="font-body-md text-body-md text-on-surface-variant">
+          [Placeholder myth text]
+          <button type="button" class="italic font-semibold text-primary block mt-1" data-faq-toggle>
+            Basahin sa Tagalog
+          </button>
+        </p>
+        <div class="hidden" data-faq-answer>
+          <p class="font-body-md text-body-md text-on-surface-variant italic">
+            [Placeholder sa Tagalog]
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Facts Card (right column) -->
+    <div class="bg-surface-container-low rounded-xl border border-primary shadow-sm flex flex-col divide-y divide-outline-variant">
+      <div class="flex items-center gap-2 p-6 pb-4">
+        <div class="w-9 h-9 bg-primary-container text-on-primary-container rounded-full flex items-center justify-center shrink-0">
+          <span class="material-symbols-outlined text-lg" data-weight="fill">check</span>
+        </div>
+        <h3 class="font-headline-md text-body-lg font-semibold text-primary">Fact <em class="italic font-normal text-sm text-on-surface-variant">(Katotohanan)</em></h3>
+      </div>
+
+      <div class="flex flex-col gap-2 p-6" data-faq-item>
+        <p class="font-body-md text-body-md text-on-surface-variant">
+          [Placeholder corrected fact]
+          <button type="button" class="italic font-semibold text-primary block mt-1" data-faq-toggle>
+            Basahin sa Tagalog
+          </button>
+        </p>
+        <div class="hidden" data-faq-answer>
+          <p class="font-body-md text-body-md text-on-surface-variant italic">
+            [Placeholder sa Tagalog]
+          </p>
+        </div>
+      </div>
+
+      <div class="flex flex-col gap-2 p-6" data-faq-item>
+        <p class="font-body-md text-body-md text-on-surface-variant">
+          [Placeholder corrected fact]
+          <button type="button" class="italic font-semibold text-primary block mt-1" data-faq-toggle>
+            Basahin sa Tagalog
+          </button>
+        </p>
+        <div class="hidden" data-faq-answer>
+          <p class="font-body-md text-body-md text-on-surface-variant italic">
+            [Placeholder sa Tagalog]
+          </p>
+        </div>
+      </div>
+
+      <div class="flex flex-col gap-2 p-6" data-faq-item>
+        <p class="font-body-md text-body-md text-on-surface-variant">
+          [Placeholder corrected fact]
+          <button type="button" class="italic font-semibold text-primary block mt-1" data-faq-toggle>
+            Basahin sa Tagalog
+          </button>
+        </p>
+        <div class="hidden" data-faq-answer>
+          <p class="font-body-md text-body-md text-on-surface-variant italic">
+            [Placeholder sa Tagalog]
+          </p>
+        </div>
+      </div>
+
+      <div class="flex flex-col gap-2 p-6" data-faq-item>
+        <p class="font-body-md text-body-md text-on-surface-variant">
+          [Placeholder corrected fact]
+          <button type="button" class="italic font-semibold text-primary block mt-1" data-faq-toggle>
+            Basahin sa Tagalog
+          </button>
+        </p>
+        <div class="hidden" data-faq-answer>
+          <p class="font-body-md text-body-md text-on-surface-variant italic">
+            [Placeholder sa Tagalog]
+          </p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+<!-- End Myths about Hypertension Section -->
+
 <!-- FAQ Section (merged in from the old standalone FAQs page) -->
 <section class="flex flex-col gap-stack-md">
-  <h2 class="font-headline-lg-mobile md:font-headline-lg text-headline-lg-mobile md:text-headline-lg text-primary">Mga Madalas Itanong</h2>
-  <p class="font-body-lg text-body-lg text-on-surface-variant max-w-6xl">Mga sagot sa karaniwang katanungan tungkol sa hypertension.</p>
+  <div class="flex flex-col gap-2">
+    <h2 class="font-headline-lg-mobile md:font-headline-lg text-headline-lg-mobile md:text-headline-lg text-primary">Mga Madalas Itanong (FAQs)</h2>
+    <p class="font-body-lg text-body-lg text-on-surface-variant max-w-6xl">Mga sagot sa karaniwang katanungan tungkol sa hypertension.</p>
+  </div>
   <div class="flex flex-col gap-4">
 
     <div class="bg-surface-container-low border border-primary rounded-xl overflow-hidden" data-faq-item>
@@ -196,5 +445,164 @@
       </div>
     </div>
 
+    <div class="bg-surface-container-low border border-primary rounded-xl overflow-hidden" data-faq-item>
+      <button type="button" class="w-full flex items-center justify-between gap-4 p-6 text-left" data-faq-toggle>
+        <span class="font-headline-md text-body-lg font-semibold text-primary">Tama ba na balewalain ang pagkakaroon ng hypertension?</span>
+        <span class="material-symbols-outlined text-primary shrink-0 transition-transform duration-200" data-faq-icon>expand_more</span>
+      </button>
+      <div class="hidden px-6 pb-6" data-faq-answer>
+        <p class="font-body-md text-body-md text-on-surface-variant">Hindi. Hindi dapat balewalain ang hypertension dahil maaari itong magdulot ng malubhang komplikasyon tulad ng stroke, sakit sa puso, at sakit sa bato, kahit walang nararamdamang sintomas.</p>
+      </div>
+    </div>
+
+    <div class="bg-surface-container-low border border-primary rounded-xl overflow-hidden" data-faq-item>
+      <button type="button" class="w-full flex items-center justify-between gap-4 p-6 text-left" data-faq-toggle>
+        <span class="font-headline-md text-body-lg font-semibold text-primary">Pwede bang walang sintomas ang hypertension?</span>
+        <span class="material-symbols-outlined text-primary shrink-0 transition-transform duration-200" data-faq-icon>expand_more</span>
+      </button>
+      <div class="hidden px-6 pb-6" data-faq-answer>
+        <p class="font-body-md text-body-md text-on-surface-variant">Oo. Ang hypertension ay maaaring walang sintomas, kahit mataas na ang blood pressure. Kaya mahalaga ang regular na pag-check ng BP.</p>
+      </div>
+    </div>
+
+    <div class="bg-surface-container-low border border-primary rounded-xl overflow-hidden" data-faq-item>
+      <button type="button" class="w-full flex items-center justify-between gap-4 p-6 text-left" data-faq-toggle>
+        <span class="font-headline-md text-body-lg font-semibold text-primary">Nakakaapekto ba ang puyat sa blood pressure?</span>
+        <span class="material-symbols-outlined text-primary shrink-0 transition-transform duration-200" data-faq-icon>expand_more</span>
+      </button>
+      <div class="hidden px-6 pb-6" data-faq-answer>
+        <p class="font-body-md text-body-md text-on-surface-variant">Oo. Ang madalas na pagpupuyat ay maaaring magpataas ng blood pressure dahil hindi sapat ang oras ng pahinga ng katawan. Maaari rin nitong dagdagan ang stress at gawing mas mahirap kontrolin ang hypertension. Mahalaga ang sapat at regular na tulog para makatulong sa pagpapanatili ng normal na BP.</p>
+      </div>
+    </div>
+
+    <div class="bg-surface-container-low border border-primary rounded-xl overflow-hidden" data-faq-item>
+      <button type="button" class="w-full flex items-center justify-between gap-4 p-6 text-left" data-faq-toggle>
+        <span class="font-headline-md text-body-lg font-semibold text-primary">Ano ang dapat gawin kapag nakalimutang uminom ng gamot sa tamang oras?</span>
+        <span class="material-symbols-outlined text-primary shrink-0 transition-transform duration-200" data-faq-icon>expand_more</span>
+      </button>
+      <div class="hidden px-6 pb-6" data-faq-answer>
+        <p class="font-body-md text-body-md text-on-surface-variant">Kung nakalimutan ang gamot sa tamang oras, huwag basta uminom ng dobleng dose para bumawi. Tingnan ang instructions ng gamot o magtanong sa doktor o pharmacist kung ano ang dapat gawin. Ang tamang hakbang ay maaaring mag-iba depende sa uri ng gamot at kung gaano na ito katagal nakalimutan.</p>
+      </div>
+    </div>
+
+    <div class="bg-surface-container-low border border-primary rounded-xl overflow-hidden" data-faq-item>
+      <button type="button" class="w-full flex items-center justify-between gap-4 p-6 text-left" data-faq-toggle>
+        <span class="font-headline-md text-body-lg font-semibold text-primary">Ano ang kailangan gawin para hindi makalimutang uminom ng gamot?</span>
+        <span class="material-symbols-outlined text-primary shrink-0 transition-transform duration-200" data-faq-icon>expand_more</span>
+      </button>
+      <div class="hidden px-6 pb-6" data-faq-answer>
+        <p class="font-body-md text-body-md text-on-surface-variant">Mag-set ng alarm sa cellphone, gumamit ng pill organizer, at gumawa ng medication checklist. Maaari ring humingi ng tulong sa pamilya para sa paalala.</p>
+      </div>
+    </div>
+
+    <div class="bg-surface-container-low border border-primary rounded-xl overflow-hidden" data-faq-item>
+      <button type="button" class="w-full flex items-center justify-between gap-4 p-6 text-left" data-faq-toggle>
+        <span class="font-headline-md text-body-lg font-semibold text-primary">Nakakaapekto ba ang stress sa blood pressure?</span>
+        <span class="material-symbols-outlined text-primary shrink-0 transition-transform duration-200" data-faq-icon>expand_more</span>
+      </button>
+      <div class="hidden px-6 pb-6" data-faq-answer>
+        <p class="font-body-md text-body-md text-on-surface-variant">Oo. Maaaring pansamantalang tumaas ang blood pressure kapag stressed. Makakatulong ang sapat na tulog, relaxation activities, physical activity, at healthy coping strategies.</p>
+      </div>
+    </div>
+
+    <div class="bg-surface-container-low border border-primary rounded-xl overflow-hidden" data-faq-item>
+      <button type="button" class="w-full flex items-center justify-between gap-4 p-6 text-left" data-faq-toggle>
+        <span class="font-headline-md text-body-lg font-semibold text-primary">Maiiwasan ba ang hypertension?</span>
+        <span class="material-symbols-outlined text-primary shrink-0 transition-transform duration-200" data-faq-icon>expand_more</span>
+      </button>
+      <div class="hidden px-6 pb-6" data-faq-answer>
+        <p class="font-body-md text-body-md text-on-surface-variant">Maaaring mabawasan ang panganib sa pamamagitan ng healthy diet, regular na physical activity, pagpapanatili ng healthy weight, pag-iwas sa paninigarilyo, paglilimita sa alak, at regular na health check-up.</p>
+      </div>
+    </div>
+
+    <div class="bg-surface-container-low border border-primary rounded-xl overflow-hidden" data-faq-item>
+      <button type="button" class="w-full flex items-center justify-between gap-4 p-6 text-left" data-faq-toggle>
+        <span class="font-headline-md text-body-lg font-semibold text-primary">Anong mga pagkain ang dapat iwasan?</span>
+        <span class="material-symbols-outlined text-primary shrink-0 transition-transform duration-200" data-faq-icon>expand_more</span>
+      </button>
+      <div class="hidden px-6 pb-6" data-faq-answer>
+        <p class="font-body-md text-body-md text-on-surface-variant">Limitahan ang maalat at processed foods tulad ng instant noodles, chichirya, hotdog, longganisa, ham, bacon, corned beef, bagoong, patis, at mga pagkaing de-lata.</p>
+      </div>
+    </div>
+
+    <div class="bg-surface-container-low border border-primary rounded-xl overflow-hidden" data-faq-item>
+      <button type="button" class="w-full flex items-center justify-between gap-4 p-6 text-left" data-faq-toggle>
+        <span class="font-headline-md text-body-lg font-semibold text-primary">Ano ang mga pagkaing mas mainam kainin?</span>
+        <span class="material-symbols-outlined text-primary shrink-0 transition-transform duration-200" data-faq-icon>expand_more</span>
+      </button>
+      <div class="hidden px-6 pb-6" data-faq-answer>
+        <p class="font-body-md text-body-md text-on-surface-variant">Kumain ng mas maraming gulay, prutas, isda, monggo, tokwa, bawang, skinless chicken, whole grains, at low-fat dairy products.</p>
+      </div>
+    </div>
+
+    <div class="bg-surface-container-low border border-primary rounded-xl overflow-hidden" data-faq-item>
+      <button type="button" class="w-full flex items-center justify-between gap-4 p-6 text-left" data-faq-toggle>
+        <span class="font-headline-md text-body-lg font-semibold text-primary">Nakakatulong ba ang ehersisyo?</span>
+        <span class="material-symbols-outlined text-primary shrink-0 transition-transform duration-200" data-faq-icon>expand_more</span>
+      </button>
+      <div class="hidden px-6 pb-6" data-faq-answer>
+        <p class="font-body-md text-body-md text-on-surface-variant">Oo. Ang regular na physical activity ay nakakatulong sa pagkontrol ng blood pressure at pagpapanatili ng tamang timbang.</p>
+      </div>
+    </div>
+
+    <div class="bg-surface-container-low border border-primary rounded-xl overflow-hidden" data-faq-item>
+      <button type="button" class="w-full flex items-center justify-between gap-4 p-6 text-left" data-faq-toggle>
+        <span class="font-headline-md text-body-lg font-semibold text-primary">Ano ang dapat gawin kapag mataas ang blood pressure?</span>
+        <span class="material-symbols-outlined text-primary shrink-0 transition-transform duration-200" data-faq-icon>expand_more</span>
+      </button>
+      <div class="hidden px-6 pb-6" data-faq-answer>
+        <p class="font-body-md text-body-md text-on-surface-variant">Umupo at magpahinga nang ilang minuto, pagkatapos ay sukatin muli ang blood pressure. Kung mataas pa rin o may kasamang sintomas tulad ng matinding sakit ng ulo, pananakit ng dibdib, hirap sa paghinga, o panlalabo ng paningin, agad na magpatingin sa pinakamalapit na health facility.</p>
+      </div>
+    </div>
+
+    <div class="bg-surface-container-low border border-primary rounded-xl overflow-hidden" data-faq-item>
+      <button type="button" class="w-full flex items-center justify-between gap-4 p-6 text-left" data-faq-toggle>
+        <span class="font-headline-md text-body-lg font-semibold text-primary">Gaano kadalas dapat sukatin ang blood pressure?</span>
+        <span class="material-symbols-outlined text-primary shrink-0 transition-transform duration-200" data-faq-icon>expand_more</span>
+      </button>
+      <div class="hidden px-6 pb-6" data-faq-answer>
+        <p class="font-body-md text-body-md text-on-surface-variant">Depende sa iyong kondisyon at payo ng healthcare professional. Kung mino-monitor ang blood pressure sa bahay, mahalagang i-check ito nang regular at i-document ang mga resulta para sa sunod na check-up.</p>
+      </div>
+    </div>
+
+    <div class="bg-surface-container-low border border-primary rounded-xl overflow-hidden" data-faq-item>
+      <button type="button" class="w-full flex items-center justify-between gap-4 p-6 text-left" data-faq-toggle>
+        <span class="font-headline-md text-body-lg font-semibold text-primary">Ano po ba ang mga sanhi ng pagkakaroon ng hypertension?</span>
+        <span class="material-symbols-outlined text-primary shrink-0 transition-transform duration-200" data-faq-icon>expand_more</span>
+      </button>
+      <div class="hidden px-6 pb-6" data-faq-answer>
+        <p class="font-body-md text-body-md text-on-surface-variant">Ang mga sanhi ng pagkakaroon ng hypertension ay ang pagkain ng mga matataas sa cholesterol, kakulangan sa ehersisyo, at maaari ring dahil sa namana mula sa pamilya.</p>
+      </div>
+    </div>
+
+    <div class="bg-surface-container-low border border-primary rounded-xl overflow-hidden" data-faq-item>
+      <button type="button" class="w-full flex items-center justify-between gap-4 p-6 text-left" data-faq-toggle>
+        <span class="font-headline-md text-body-lg font-semibold text-primary">Gaano kadalas dapat bumisita sa mga center?</span>
+        <span class="material-symbols-outlined text-primary shrink-0 transition-transform duration-200" data-faq-icon>expand_more</span>
+      </button>
+      <div class="hidden px-6 pb-6" data-faq-answer>
+        <p class="font-body-md text-body-md text-on-surface-variant">Mahalaga ang regular na pagbisita sa mga Barangay Health Center o Rural Health Center upang maayos na ma-monitor ng doktor o nurse ang kalagayan ng pasyente.</p>
+      </div>
+    </div>
+
   </div>
+</section>
+
+<!-- References / Studies -->
+<section class="flex flex-col gap-stack-md border-t border-outline-variant pt-container-margin">
+  <h2 class="font-headline-md text-headline-md text-primary">References &amp; Further Reading</h2>
+  <ul class="flex flex-col gap-3">
+    <li>
+      <a href="https://www.nhlbi.nih.gov/health/dash-eating-plan" target="_blank" rel="noopener noreferrer" class="group flex items-center justify-between gap-4 bg-surface-container-low rounded-xl p-4 border border-primary shadow-sm hover:bg-primary-container/10 transition-colors">
+        <span class="font-body-md text-body-md font-medium text-primary">NHLBI — DASH Eating Plan</span>
+        <span class="material-symbols-outlined text-primary shrink-0 transition-transform group-hover:translate-x-0.5" aria-hidden="true">open_in_new</span>
+      </a>
+    </li>
+    <li>
+      <a href="https://www.nhlbi.nih.gov/health/dash/living-with-dash" target="_blank" rel="noopener noreferrer" class="group flex items-center justify-between gap-4 bg-surface-container-low rounded-xl p-4 border border-primary shadow-sm hover:bg-primary-container/10 transition-colors">
+        <span class="font-body-md text-body-md font-medium text-primary">NHLBI — Living with the DASH Eating Plan</span>
+        <span class="material-symbols-outlined text-primary shrink-0 transition-transform group-hover:translate-x-0.5" aria-hidden="true">open_in_new</span>
+      </a>
+    </li>
+  </ul>
 </section>

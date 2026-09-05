@@ -148,9 +148,6 @@ window.addEventListener("hashchange", render);
     <nav class="hidden md:flex gap-6 items-center ml-auto">
         ${links}
     </nav>
-    <div class="flex items-center gap-4 text-brand-maroon ml-6">
-      <button class="hover:text-brand-maroon-hover transition-colors"></button>
-    </div>
   </header>`;
   };
 
