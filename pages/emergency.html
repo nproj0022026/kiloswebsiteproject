@@ -79,7 +79,7 @@
             <p class="font-label-caps text-label-caps text-primary mb-1">MDRRMO Mercedes</p>
             <p class="font-headline-md text-headline-md font-bold text-on-surface  ">09190983190</p>
           </div>
-          <a class="w-12 h-12 bg-primary text-on-primary rounded-full flex items-center justify-center hover:bg-secondary transition-colors shrink-0" href="tel:09123456789">
+          <a class="w-12 h-12 bg-primary text-on-primary rounded-full flex items-center justify-center hover:bg-secondary transition-colors shrink-0" href="tel:09190983190">
             <span class="material-symbols-outlined">call</span>
           </a>
         </div>
@@ -109,15 +109,19 @@
 
   <!-- Right Column: Contacts & Location, side-by-side -->
   <div class="md:col-span-12 flex flex-col gap-stack-md mt-8 md:mt-8">
-    <h2 class="font-headline-md text-headline-md text-on-surface border-b border-outline-variant pb-2 text-primary">Nearest Facility</h2>
+    <h2 class="font-headline-md text-headline-md text-on-surface border-b border-outline-variant pb-2 text-primary">Health Center</h2>
     <div class="  bg-surface-container-low rounded-xl overflow-hidden border border-primary shadow-sm md:flex">
-      <div class="h-56 md:h-auto md:w-1/2 w-full relative">
+      <div class="h-56 md:h-auto md:w-1/2 w-full relative bg-surface-container-low">
         <iframe
+          id="facilityMapFrame"
           class="w-full h-full border-0"
           loading="lazy"
-          referrerpolicy="no-referrer-when-downgrade"
-          src="https://www.google.com/maps?q=13.9473138,123.0792718&z=17&output=embed">
+          referrerpolicy="no-referrer-when-downgrade">
         </iframe>
+        <div id="mapLoadingOverlay" class="absolute inset-0 flex flex-col items-center justify-center gap-2 bg-surface-container-low">
+          <span class="material-symbols-outlined animate-spin text-primary text-3xl">progress_activity</span>
+          <p class="font-label-caps text-label-caps text-on-surface-variant">Locating your position...</p>
+        </div>
       </div>
       <div class="p-8 md:w-1/2 flex flex-col justify-center gap-4">
         <div class="flex items-center gap-4">
@@ -129,16 +133,19 @@
           </div>
         </div>
 
-        <p class="font-body-md text-body-md text-on-surface-variant flex items-center gap-2 pl-1">
-          <span class="material-symbols-outlined text-lg text-primary">location_on</span>
-          Barangay Tarum, Mercedes, Camarines Norte
-        </p>
+        <div class="flex flex-col sm:flex-row md:flex-col lg:flex-row justify-end gap-3 mt-2">
+          <button id="locateBtn"
+            class="inline-flex items-center justify-center gap-2 bg-surface-container-low text-primary border border-primary font-label-caps text-label-caps px-6 py-3 rounded-lg w-full md:w-fit hover:bg-primary-container transition-colors shadow-sm">
+            <span class="material-symbols-outlined">my_location</span>
+            Locate Health Center
+          </button>
 
-        <a href="https://maps.app.goo.gl/vc6iRRMYNYtF5GBXA" target="_blank" rel="noopener"
-          class="mt-2 inline-flex items-center justify-center gap-2 bg-primary text-on-primary font-label-caps text-label-caps px-6 py-3 rounded-full w-full md:w-fit md:self-end hover:bg-secondary transition-colors shadow-sm">
-          <span class="material-symbols-outlined">directions</span>
-          Get Directions
-        </a>
+          <button id="directionsBtn" aria-disabled="true"
+            class="inline-flex items-center justify-center gap-2 bg-primary text-on-primary font-label-caps text-label-caps px-6 py-3 rounded-lg w-full md:w-fit md:self-end hover:bg-secondary transition-colors shadow-sm opacity-50 cursor-not-allowed">
+            <span class="material-symbols-outlined">directions</span>
+            Start Directions
+          </button>
+        </div>
       </div>
     </div>
   </div>

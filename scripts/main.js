@@ -2,7 +2,6 @@
 
 /* 1. TAILWIND CONFIG */
 tailwind.config = {
-  darkMode: "class",
   theme: {
     extend: {
       colors: {
@@ -22,15 +21,24 @@ tailwind.config = {
         "surface-bright": "#fcf9f8", "on-primary-fixed-variant": "#690000",
         "surface-container-highest": "#e5e2e1", "on-background": "#1b1b1b",
         "secondary-fixed-dim": "#85d7ad", "warning": "#d32f2f", "tertiary": "#6f4a44",
+        /* BP severity ramp (Elevated -> High Stage 1 -> High Stage 2), added
+           to close the gap that forced pages/about.html to hardcode raw hex
+           for these three table rows. Sits between "tertiary" (used for Low)
+           and "error" (used for Crisis) on the visual scale — review the
+           exact shades against brand guidelines before shipping. */
+        "elevated": "#b45309", "elevated-container": "#fef3c7", "on-elevated-container": "#78350f",
+        "high": "#c2410c", "high-container": "#fed7aa", "on-high-container": "#7c2d12",
+        "high-2": "#9a3412", "high-2-container": "#fdba74", "on-high-2-container": "#5c1a06",
         "tertiary-container": "#8a5c55", "on-tertiary-container": "#ffffff",
         "tertiary-fixed": "#f0dedc", "tertiary-fixed-dim": "#d9bab5",
-        "on-tertiary-fixed": "#2b1512", "on-tertiary-fixed-variant": "#5c4440"
+        "on-tertiary-fixed": "#2b1512", "on-tertiary-fixed-variant": "#5c4440",
+        "maroon-soft": "#c65c4e", "maroon-tint": "#fbe9e5", "maroon-container": "#f6d4cd"
       },
       borderRadius: { DEFAULT: "0.25rem", lg: "0.5rem", xl: "0.75rem", full: "9999px" },
       spacing: { gutter: "16px", "container-margin": "24px", "stack-md": "24px", "stack-sm": "12px", "stack-lg": "48px", base: "8px" },
       fontFamily: {
         "headline-lg-mobile": ["Lexend"], "data-display": ["Lexend"], "headline-md": ["Lexend"],
-        "body-lg": ["Lexend"], "label-caps": ["Inter"], "body-md": ["Lexend"], "headline-lg": ["Lexend"]
+        "body-lg": ["Inter"], "label-caps": ["Inter"], "body-md": ["Inter"], "headline-lg": ["Lexend"]
       },
       fontSize: {
         "headline-lg-mobile": ["26px", { lineHeight: "32px", fontWeight: "700" }],
@@ -101,6 +109,8 @@ async function render() {
     // break navigation for the rest of the site.
     if (route.page === "tracker" && typeof initBpForm === "function") initBpForm();
     if (route.page === "home") updateHomeGreeting();
+    if (route.page === "about" && typeof initAboutPage === "function") initAboutPage();
+    if (route.page === "emergency" && typeof initEmergencyPage === "function") initEmergencyPage();
 
     window.scrollTo({ top: 0, behavior: "instant" in window ? "instant" : "auto" });
   } catch (err) {
@@ -120,12 +130,10 @@ window.addEventListener("hashchange", render);
     { key: "emergency", label: "Emergency", icon: "emergency_share", path: "/emergency" }
   ];
 
-  const BOTTOM_NAV_ITEMS = [
-    { key: "home", label: "Home", icon: "home", path: "/" },
-    { key: "about", label: "About", icon: "menu_book", path: "/about" },
-    { key: "tracker", label: "Tracker", icon: "monitor_heart", path: "/tracker" },
-    { key: "emergency", label: "Emergency", icon: "emergency_share", path: "/emergency" }
-  ];
+  // Bottom nav mirrors NAV_ITEMS exactly today, but is kept as its own
+  // reference (not a second literal array) so top nav and bottom nav
+  // can never silently drift apart — see plan.md's stated intent.
+  const BOTTOM_NAV_ITEMS = NAV_ITEMS;
 
   window.renderHeader = function renderHeader() {
     const mount = document.getElementById("site-header");
@@ -134,13 +142,13 @@ window.addEventListener("hashchange", render);
 
     const links = NAV_ITEMS.map((item) => {
       const active = item.key === currentPage;
-      const activeClasses = "text-brand-maroon dark:text-brand-maroon border-b-2 border-brand-maroon font-bold";
-      const inactiveClasses = "text-on-surface-variant dark:text-surface-variant font-medium hover:text-brand-maroon dark:hover:text-brand-maroon";
+      const activeClasses = "text-brand-maroon border-b-2 border-brand-maroon font-bold";
+      const inactiveClasses = "text-on-surface-variant font-medium hover:text-brand-maroon";
       return `<a class="font-label-caps text-label-caps ${active ? activeClasses : inactiveClasses} transition-colors py-2" href="#${item.path}">${item.label}</a>`;
     }).join("\n      ");
 
     mount.innerHTML = `
-  <header class="md:sticky md:top-0 w-full z-50 flex justify-between items-center px-container-margin py-4 bg-surface dark:bg-background border-b border-outline-variant dark:border-outline">
+  <header class="md:sticky md:top-0 w-full z-50 flex justify-between items-center px-container-margin py-4 bg-surface border-b border-outline-variant">
     <a class="flex items-center gap-3 " href="#/">
       <img src="assets/logo/kilos-logo.png" alt="Project K.I.L.O.S. logo" class="h-10 w-10 object-contain shrink-0">
       <span class="font-headline-lg text-headline-lg font-bold text-brand-maroon">K.I.L.O.S.</span>
@@ -158,8 +166,8 @@ window.addEventListener("hashchange", render);
 
     const links = BOTTOM_NAV_ITEMS.map((item) => {
       const active = item.key === currentPage;
-      const activeClasses = "bg-brand-maroon/15 dark:bg-brand-maroon/25 text-brand-maroon dark:text-brand-maroon";
-      const inactiveClasses = "text-on-surface-variant dark:text-surface-variant";
+      const activeClasses = "bg-brand-maroon/15 text-brand-maroon";
+      const inactiveClasses = "text-on-surface-variant";
       return `
     <a class="flex-1 flex flex-col items-center justify-center ${active ? activeClasses : inactiveClasses} rounded-full px-4 py-1 transition-transform active:scale-90 duration-150" href="#${item.path}">
       <span class="material-symbols-outlined mb-1"${active ? ' data-weight="fill"' : ""}>${item.icon}</span>
@@ -168,7 +176,7 @@ window.addEventListener("hashchange", render);
     }).join("");
 
     mount.innerHTML = `
-  <nav class="fixed bottom-0 left-0 w-full z-50 flex items-center px-4 py-3 md:hidden bg-surface dark:bg-surface-container-low border-t border-outline-variant shadow-lg">${links}
+  <nav class="fixed bottom-0 left-0 w-full z-50 flex items-center px-4 py-3 md:hidden bg-surface border-t border-outline-variant shadow-lg">${links}
   </nav>`;
   };
 

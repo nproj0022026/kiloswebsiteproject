@@ -1,18 +1,18 @@
 <!-- Hero Section -->
 <section class="w-full flex flex-col md:flex-row items-center gap-stack-md md:gap-stack-lg">
-  <div class="w-full md:w-1/2 flex flex-col gap-stack-sm">
+  <div class="w-full md:w-1/2 flex flex-col gap-stack-sm relative z-10">
     <div class="flex items-center gap-2">
-      <span class="font-label-caps text-label-caps text-primary tracking-widest uppercase" data-home-greeting>Welcome</span>
+      <span class="font-body-md text-body-md text-on-surface-variant" data-home-greeting>Welcome</span>
       <button type="button" data-edit-name class="text-primary hover:text-secondary transition-colors" aria-label="Edit your name">
         <span class="material-symbols-outlined text-base align-middle">edit</span>
       </button>
     </div>
-    <h1 class="font-headline-lg md:font-data-display text-[38px] leading-[44px] font-bold md:text-[48px] md:leading-[56px] text-primary">Alagaan ang Puso para sa Magandang Bukas.</h1>
+    <h1 class="font-headline-lg text-headline-lg md:font-data-display md:text-data-display text-primary">Alagaan ang Puso para sa Magandang Bukas.</h1>
     <p class="font-body-lg text-body-lg text-on-surface-variant max-w-[480px]">
       Project K.I.L.O.S. is here to guide you in managing hypertension. Simple tools, clear information, and a community approach to better health.
     </p>
   </div>
-  <div class="w-full md:w-1/2">
+  <div class="w-full md:w-1/2 relative z-10">
     <img alt="Team K.I.L.O.S. members" class="w-full h-auto rounded-xl" src="/assets/images/Teampicture.jpg">
   </div>
 </section>
@@ -21,21 +21,21 @@
 <section class="grid grid-cols-1 md:grid-cols-3 gap-stack-sm md:gap-stack-md w-full">
 
   <!-- Learn Card -->
-  <a class="group flex flex-col p-6   bg-surface-container-low rounded-xl border border-primary   hover:shadow-lg transition-all duration-300 relative overflow-hidden" href="#/about" data-route>
+  <a class="group flex flex-col p-6 bg-maroon-tint rounded-xl hover:bg-maroon-container transition-colors duration-300 relative overflow-hidden" href="#/about" data-route>
     <div class="z-10 flex flex-col gap-3">
-      <div class="w-12 h-12 rounded-full bg-primary-container text-on-primary-container flex items-center justify-center">
+      <div class="w-12 h-12 rounded-full bg-surface-container-lowest text-maroon-soft flex items-center justify-center">
         <span class="material-symbols-outlined text-2xl">menu_book</span>
       </div>
-      <h2 class="font-headline-md text-lg font-bold text-primary">Learn about Hypertension</h2>
+      <h2 class="font-headline-md text-lg font-bold text-on-surface">Learn about Hypertension</h2>
       <p class="font-body-md text-body-md text-on-surface-variant">Alamin ang tungkol sa iyong blood pressure, mga sintomas nito, at kung paano ito makokontrol sa araw-araw</p>
-      <div class="mt-1 flex items-center gap-2 text-primary font-bold">
+      <div class="mt-1 flex items-center gap-2 text-maroon-soft font-bold">
         Read more <span class="material-symbols-outlined group-hover:translate-x-1 transition-transform">arrow_forward</span>
       </div>
     </div>
   </a>
 
   <!-- Log BP Card -->
-  <a class="group flex flex-col p-6   bg-surface-container-low rounded-xl border border-primary   hover:shadow-lg transition-all duration-300 relative overflow-hidden" href="#/tracker" data-route>
+  <a class="group flex flex-col p-6 bg-surface-container-low rounded-xl border border-primary/25 hover:border-primary/50 transition-colors duration-300 relative overflow-hidden" href="#/tracker" data-route>
     <div class="z-10 flex flex-col gap-3">
       <div class="w-12 h-12 rounded-full bg-primary text-on-primary flex items-center justify-center">
         <span class="material-symbols-outlined text-2xl">monitor_heart</span>
@@ -49,14 +49,14 @@
   </a>
 
   <!-- Emergency Plan Card (Urgent) -->
-  <a class="group flex flex-col p-6   bg-surface-container-low rounded-xl border border-primary   hover:shadow-lg transition-all duration-300 relative overflow-hidden" href="#/emergency" data-route>
+  <a class="group flex flex-col p-6 bg-primary hover:bg-secondary rounded-xl transition-colors duration-300 relative overflow-hidden" href="#/emergency" data-route>
     <div class="z-10 flex flex-col gap-3">
-      <div class="w-12 h-12 rounded-full bg-error text-on-error flex items-center justify-center">
+      <div class="w-12 h-12 rounded-full bg-on-primary/15 text-on-primary flex items-center justify-center">
         <span class="material-symbols-outlined text-2xl">emergency_share</span>
       </div>
-      <h2 class="font-headline-md text-lg font-bold text-primary">Emergency Plan</h2>
-      <p class="font-body-md text-body-md text-on-surface-variant">Alamin ang gagawin kapag nagkaroon ng hypertensive crisis. Mabilis na access sa mga hotline number.</p>
-      <div class="mt-1 flex items-center gap-2 text-primary font-bold">
+      <h2 class="font-headline-md text-lg font-bold text-on-primary">Emergency Plan</h2>
+      <p class="font-body-md text-body-md text-on-primary/80">Alamin ang gagawin kapag nagkaroon ng hypertensive crisis. Mabilis na access sa mga hotline number.</p>
+      <div class="mt-1 flex items-center gap-2 text-on-primary font-bold">
         View contacts <span class="material-symbols-outlined group-hover:translate-x-1 transition-transform">arrow_forward</span>
       </div>
     </div>
@@ -67,7 +67,7 @@
 <!-- Info Strip -->
 <section class="w-full bg-surface-container-low border-l-4 border-primary rounded-r-xl px-6 py-6 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
   <div class="flex items-start gap-4">
-    <span class="material-symbols-outlined text-2xl text-primary mt-0.5 shrink-0">health_and_safety</span>
+    <span class="material-symbols-outlined text-2xl text-maroon-soft mt-0.5 shrink-0">health_and_safety</span>
     <div>
       <h3 class="font-headline-md text-lg font-bold text-on-surface">Need assistance?</h3>
       <p class="font-body-md text-body-md text-on-surface-variant">Handa kang tulungan ng iyong local na Barangay Health Worker.</p>

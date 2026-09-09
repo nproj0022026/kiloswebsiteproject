@@ -20,15 +20,23 @@
 <script src="scripts/main.js"></script>
 <script src="scripts/pages/about.js"></script>
 <script src="scripts/pages/tracker.js"></script>
-<script src="scripts/pages/faq.js"></script>
+<script src="scripts/pages/emergency.js"></script>
 </head>
 <body class="bg-background text-on-background antialiased font-body-md text-body-md pb-[70px] md:pb-0">
+
+<!-- Persistent ambient background — fixed to viewport, sits behind every route, never rebuilt on navigation -->
+<div class="fixed inset-0 -z-10 overflow-hidden pointer-events-none" aria-hidden="true">
+  <div class="absolute -top-16 -left-12 w-64 h-64 md:w-80 md:h-80 bg-maroon-tint rounded-full blur-3xl opacity-80"></div>
+  <div class="absolute bottom-0 left-1/4 w-48 h-48 md:w-64 md:h-64 bg-maroon-container rounded-full blur-3xl opacity-60"></div>
+  <div class="absolute top-1/3 -right-16 w-56 h-56 md:w-72 md:h-72 bg-maroon-container rounded-full blur-3xl opacity-60"></div>
+  <div class="absolute bottom-1/4 right-1/4 w-40 h-40 md:w-56 md:h-56 bg-maroon-tint rounded-full blur-3xl opacity-70"></div>
+</div>
 
 <!-- Shared TopAppBar (rendered once by scripts/main.js -> renderHeader). -->
 <div id="site-header" class="contents"></div>
 
 <!-- THE ROUTER TARGET. Only this element's innerHTML changes on navigation. -->
-<main id="page-content" class="w-full max-w mx-auto px-container-margin py-[25px] flex flex-col gap-stack-lg"></main>
+<main id="page-content" class="w-full max-w mx-auto px-container-margin py-[25px] flex flex-col gap-[35px]"></main>
 
 <!-- Shared BottomNavBar, mobile only -->
 <div id="site-bottom-nav"></div>
