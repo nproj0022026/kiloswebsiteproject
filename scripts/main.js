@@ -112,6 +112,12 @@ async function render() {
     if (route.page === "about" && typeof initAboutPage === "function") initAboutPage();
     if (route.page === "emergency" && typeof initEmergencyPage === "function") initEmergencyPage();
 
+    // On Home, clean the "#/" out of the visible URL (no hashchange fired,
+    // no new history entry added — back/forward still behaves normally).
+    if (path === "/" && window.location.hash) {
+      history.replaceState(null, "", window.location.pathname + window.location.search);
+    }
+
     window.scrollTo({ top: 0, behavior: "instant" in window ? "instant" : "auto" });
   } catch (err) {
     mount.innerHTML = `<p class="text-error p-6">Sorry, this page could not be loaded. Please check your connection and try again.</p>`;
