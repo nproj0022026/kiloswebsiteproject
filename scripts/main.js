@@ -75,10 +75,35 @@ const ROUTES = {
 const pageCache = new Map();
 
 function currentPath() {
-  const hash = window.location.hash || "#/";
-  const path = hash.slice(1);
+  const path = window.location.pathname;
   return ROUTES[path] ? path : "/";
 }
+
+// Navigate to a route by pushing real history state (no "#").
+function navigateTo(path, { replace = false } = {}) {
+  if (!ROUTES[path]) path = "/";
+  if (window.location.pathname !== path) {
+    if (replace) history.replaceState(null, "", path);
+    else history.pushState(null, "", path);
+  }
+  render();
+}
+
+// Intercept clicks on internal route links so navigation uses
+// pushState instead of a full page reload. Any <a href="/about">
+// (etc.) matching a known route is handled here; everything else
+// (external links, downloads, mailto:, target=_blank) is left alone.
+document.addEventListener("click", function (e) {
+  const link = e.target.closest("a");
+  if (!link) return;
+  const href = link.getAttribute("href");
+  if (!href || !ROUTES[href]) return;
+  if (link.target === "_blank" || link.hasAttribute("download")) return;
+  e.preventDefault();
+  navigateTo(href);
+});
+
+window.addEventListener("popstate", render);
 
 async function render() {
   const path = currentPath();
@@ -112,20 +137,12 @@ async function render() {
     if (route.page === "about" && typeof initAboutPage === "function") initAboutPage();
     if (route.page === "emergency" && typeof initEmergencyPage === "function") initEmergencyPage();
 
-    // On Home, clean the "#/" out of the visible URL (no hashchange fired,
-    // no new history entry added — back/forward still behaves normally).
-    if (path === "/" && window.location.hash) {
-      history.replaceState(null, "", window.location.pathname + window.location.search);
-    }
-
     window.scrollTo({ top: 0, behavior: "instant" in window ? "instant" : "auto" });
   } catch (err) {
     mount.innerHTML = `<p class="text-error p-6">Sorry, this page could not be loaded. Please check your connection and try again.</p>`;
     console.error(err);
   }
 }
-
-window.addEventListener("hashchange", render);
 
 /* 3. SHARED CHROME (header, bottom nav) */
 (function () {
@@ -150,12 +167,12 @@ window.addEventListener("hashchange", render);
       const active = item.key === currentPage;
       const activeClasses = "text-brand-maroon border-b-2 border-brand-maroon font-bold";
       const inactiveClasses = "text-on-surface-variant font-medium hover:text-brand-maroon";
-      return `<a class="font-label-caps text-label-caps ${active ? activeClasses : inactiveClasses} transition-colors py-2" href="#${item.path}">${item.label}</a>`;
+      return `<a class="font-label-caps text-label-caps ${active ? activeClasses : inactiveClasses} transition-colors py-2" href="${item.path}">${item.label}</a>`;
     }).join("\n      ");
 
     mount.innerHTML = `
   <header class="md:sticky md:top-0 w-full z-50 flex justify-between items-center px-container-margin py-4 bg-surface border-b border-outline-variant">
-    <a class="flex items-center gap-3 " href="#/">
+    <a class="flex items-center gap-3 " href="/">
       <img src="assets/logo/kilos-logo.png" alt="Project K.I.L.O.S. logo" class="h-10 w-10 object-contain shrink-0">
       <span class="font-headline-lg text-headline-lg font-bold text-brand-maroon">K.I.L.O.S.</span>
     </a>
@@ -175,7 +192,7 @@ window.addEventListener("hashchange", render);
       const activeClasses = "bg-brand-maroon/15 text-brand-maroon";
       const inactiveClasses = "text-on-surface-variant";
       return `
-    <a class="flex-1 flex flex-col items-center justify-center ${active ? activeClasses : inactiveClasses} rounded-full px-4 py-1 transition-transform active:scale-90 duration-150" href="#${item.path}">
+    <a class="flex-1 flex flex-col items-center justify-center ${active ? activeClasses : inactiveClasses} rounded-full px-4 py-1 transition-transform active:scale-90 duration-150" href="${item.path}">
       <span class="material-symbols-outlined mb-1"${active ? ' data-weight="fill"' : ""}>${item.icon}</span>
       <span class="font-label-caps text-label-caps text-[10px] leading-tight">${item.label}</span>
     </a>`;
