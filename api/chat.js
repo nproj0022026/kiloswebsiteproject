@@ -14,13 +14,15 @@
 
 // Flash-tier model, matching the plan's intent ("Gemini's current
 // lightweight 'Flash'-tier model"). Google's Flash lineup moves fast —
-// 1.5 and 2.0 Flash are already retired. gemini-3.6-flash was chosen
-// over the cheaper gemini-3.1-flash-lite for better answer quality on
-// varied, sometimes non-native-English phrasing from the site's older
-// adult audience. If this model is deprecated, swap the string below;
-// check https://ai.google.dev/gemini-api/docs/models for the current
-// recommended model before redeploying.
-const GEMINI_MODEL = "gemini-3.6-flash";
+// 1.5 and 2.0 Flash are already retired. Using gemini-3.1-flash-lite
+// rather than gemini-3.6-flash: the latter returned a 403
+// PERMISSION_DENIED ("Project quota tier unavailable... set up billing
+// to continue") on this project's free tier — see Google AI Studio ->
+// Usage. flash-lite works on the free tier without billing, which
+// fits a no-budget community pilot. If billing gets set up later,
+// swap back to a stronger model; check
+// https://ai.google.dev/gemini-api/docs/models for current options.
+const GEMINI_MODEL = "gemini-3.1-flash-lite";
 
 const GEMINI_ENDPOINT = `https://generativelanguage.googleapis.com/v1beta/models/${GEMINI_MODEL}:generateContent`;
 
