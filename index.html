@@ -21,6 +21,7 @@
 <script src="scripts/pages/about.js"></script>
 <script src="scripts/pages/tracker.js"></script>
 <script src="scripts/pages/emergency.js"></script>
+<script src="scripts/chatbot.js"></script>
 </head>
 <body class="bg-background text-on-background antialiased font-body-md text-body-md pb-[70px] md:pb-0">
 
@@ -62,6 +63,54 @@
       <button id="modal-skip-btn" class="w-full text-on-surface-variant font-label-caps text-label-caps py-2 hover:text-primary transition-colors">Skip</button>
     </div>
   </div>
+</div>
+
+<!-- K.I.L.O.S. Assistant chatbot — shell-level chrome, mounted once, persists
+     across route changes (same pattern as the welcome modal above). Behavior
+     lives in scripts/chatbot.js. Positioned above the mobile bottom nav
+     (which reserves 70px via body's pb-[70px]); sits lower on md: and up
+     where there's no bottom nav. -->
+<button id="chatbot-launcher" type="button" aria-label="Open K.I.L.O.S. Assistant chat" aria-expanded="false" aria-controls="chatbot-panel" class="fixed z-40 bottom-[86px] right-4 md:bottom-6 md:right-6 w-14 h-14 rounded-full bg-brand-maroon text-on-primary shadow-lg flex items-center justify-center hover:bg-brand-maroon-hover active:scale-90 transition-all duration-150">
+  <span class="material-symbols-outlined text-2xl" id="chatbot-launcher-icon" aria-hidden="true">chat</span>
+</button>
+
+<div id="chatbot-panel" class="fixed z-40 bottom-[150px] right-4 left-4 md:left-auto md:bottom-24 md:right-6 md:w-[380px] h-[min(560px,68vh)] bg-surface border border-outline-variant rounded-xl shadow-xl hidden flex-col overflow-hidden" role="dialog" aria-modal="false" aria-label="K.I.L.O.S. Assistant" aria-hidden="true">
+
+  <!-- Header -->
+  <div class="flex items-center justify-between px-4 py-3 bg-brand-maroon text-on-primary shrink-0">
+    <div class="flex items-center gap-2 min-w-0">
+      <span class="material-symbols-outlined shrink-0" aria-hidden="true">health_and_safety</span>
+      <span class="font-headline-md text-body-lg font-semibold truncate">K.I.L.O.S. Assistant</span>
+    </div>
+    <button id="chatbot-close-btn" type="button" aria-label="Close chat" class="shrink-0 p-1 rounded-full hover:bg-on-primary/10 transition-colors">
+      <span class="material-symbols-outlined" aria-hidden="true">close</span>
+    </button>
+  </div>
+
+  <!-- Scope disclaimer — always visible, not just on first open -->
+  <div class="px-4 py-2 bg-maroon-tint text-on-surface-variant font-body-md text-[12px] leading-snug border-b border-outline-variant shrink-0">
+    Nagbibigay ako ng impormasyon tungkol sa hypertension, DASH diet, at paggamit ng site na ito — hindi ako pumapalit sa payo ng iyong BHW o doktor. Para sa emergency, pumunta sa <a href="/emergency" class="text-brand-maroon font-semibold underline">Emergency Plan</a>.
+  </div>
+
+  <!-- Message list -->
+  <div id="chatbot-messages" class="flex-1 overflow-y-auto px-4 py-3 flex flex-col gap-3 bg-surface-container-low" aria-live="polite"></div>
+
+  <!-- Typing indicator -->
+  <div id="chatbot-typing" class="px-4 pb-2 shrink-0 hidden">
+    <div class="inline-flex items-center gap-1 bg-surface-container px-3 py-2 rounded-full">
+      <span class="w-1.5 h-1.5 rounded-full bg-on-surface-variant animate-bounce [animation-delay:-0.3s]"></span>
+      <span class="w-1.5 h-1.5 rounded-full bg-on-surface-variant animate-bounce [animation-delay:-0.15s]"></span>
+      <span class="w-1.5 h-1.5 rounded-full bg-on-surface-variant animate-bounce"></span>
+    </div>
+  </div>
+
+  <!-- Input row -->
+  <form id="chatbot-form" class="flex items-end gap-2 px-3 py-3 border-t border-outline-variant bg-surface shrink-0">
+    <textarea id="chatbot-input" rows="1" maxlength="500" placeholder="Magtanong tungkol sa iyong BP..." aria-label="Type your question" class="flex-1 resize-none max-h-24 rounded-lg border border-outline-variant px-3 py-2 font-body-md text-body-md bg-surface-container-low focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all"></textarea>
+    <button type="submit" id="chatbot-send-btn" aria-label="Send message" class="shrink-0 w-11 h-11 rounded-full bg-primary text-on-primary flex items-center justify-center hover:bg-secondary transition-colors disabled:opacity-50 disabled:pointer-events-none">
+      <span class="material-symbols-outlined" aria-hidden="true">send</span>
+    </button>
+  </form>
 </div>
 
 </body>
