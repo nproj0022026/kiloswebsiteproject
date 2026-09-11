@@ -71,7 +71,10 @@ document.addEventListener("DOMContentLoaded", function () {
     panel.classList.add("flex");
     panel.setAttribute("aria-hidden", "false");
     launcher.setAttribute("aria-expanded", "true");
-    launcher.querySelector("#chatbot-launcher-icon").textContent = "close";
+    // Fade/scale the FAB out instead of turning it into a second close
+    // button — the panel's own header X is the single close affordance
+    // while open, so there's never two visible "X"s at once.
+    launcher.classList.add("opacity-0", "scale-75", "pointer-events-none");
 
     if (!hasGreeted) {
       hasGreeted = true;
@@ -92,7 +95,7 @@ document.addEventListener("DOMContentLoaded", function () {
     panel.classList.remove("flex");
     panel.setAttribute("aria-hidden", "true");
     launcher.setAttribute("aria-expanded", "false");
-    launcher.querySelector("#chatbot-launcher-icon").textContent = "chat";
+    launcher.classList.remove("opacity-0", "scale-75", "pointer-events-none");
   }
 
   launcher.addEventListener("click", () => {

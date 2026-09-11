@@ -75,12 +75,21 @@
      lives in scripts/chatbot.js. Positioned above the mobile bottom nav
      (still position:fixed to the viewport, so bottom-[86px] clears the bottom
      nav's rendered height even though the nav itself is normal-flow now);
-     sits lower on md: and up where there's no bottom nav. -->
+     sits lower on md: and up where there's no bottom nav.
+     While the panel is open, chatbot.js fades/scales this FAB out (opacity-0
+     scale-75 pointer-events-none) rather than swapping its icon to a second
+     close button — the panel's own header X (#chatbot-close-btn) is the
+     single close affordance, so there's never two visible "X"s at once.
+     The panel below shares this exact bottom-[86px]/md:bottom-6 offset —
+     since the FAB is now fully hidden (not left visible) while open, the
+     panel no longer needs extra clearance below it, and dropping the panel
+     to the FAB's own resting position stops page content (e.g. a page's
+     "Contact Health Center" button) from showing through the gap. -->
 <button id="chatbot-launcher" type="button" aria-label="Open K.I.L.O.S. Assistant chat" aria-expanded="false" aria-controls="chatbot-panel" class="fixed z-40 bottom-[86px] right-4 md:bottom-6 md:right-6 w-14 h-14 rounded-full bg-brand-maroon text-on-primary shadow-lg flex items-center justify-center hover:bg-brand-maroon-hover active:scale-90 transition-all duration-150">
-  <span class="material-symbols-outlined text-2xl" id="chatbot-launcher-icon" aria-hidden="true">chat</span>
+  <span class="material-symbols-outlined text-2xl" aria-hidden="true">chat</span>
 </button>
 
-<div id="chatbot-panel" class="fixed z-40 bottom-[150px] right-4 left-4 md:left-auto md:bottom-24 md:right-6 md:w-[380px] h-[min(560px,68vh)] bg-surface border border-outline-variant rounded-xl shadow-xl hidden flex-col overflow-hidden" role="dialog" aria-modal="false" aria-label="K.I.L.O.S. Assistant" aria-hidden="true">
+<div id="chatbot-panel" class="fixed z-40 bottom-[80px] right-4 left-4 md:left-auto md:bottom-5 md:right-6 md:w-[380px] h-[min(560px,68vh)] bg-surface border border-outline-variant rounded-xl shadow-xl hidden flex-col overflow-hidden" role="dialog" aria-modal="false" aria-label="K.I.L.O.S. Assistant" aria-hidden="true">
 
   <!-- Header -->
   <div class="flex items-center justify-between px-4 py-3 bg-brand-maroon text-on-primary shrink-0">
