@@ -13,141 +13,116 @@
   </a>
 </section>
 
-<!-- <div class="md:col-span-12 flex justify-center gap-stack-md mt-2">
-  <div class="bg-tertiary-fixed rounded-lg p-6 flex items-center justify-center gap-4 border border-primary">
-    <p class="font-body-md text-body-md text-primary text-center">
-      <strong>Symptoms to watch out for:</strong> Chest pain, shortness of breath, back pain, numbness/weakness, change in vision, or difficulty speaking.
-    </p>
-  </div>
-</div> -->
-
 <div class="grid grid-cols-1 md:grid-cols-12 gap-gutter">
 
   <!-- Left Column: Action Plan -->
   <div class="md:col-span-7 flex flex-col gap-stack-md">
     <h2 class="font-headline-md text-headline-md text-on-surface border-b border-outline-variant pb-2 text-primary">Emergency Action Steps</h2>
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-4">
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
 
-      <div class="  bg-surface-container-low rounded-lg p-6 border border-primary flex flex-col gap-3 relative overflow-hidden group">
+      <div class="bg-surface-container-low rounded-lg p-6 border border-primary flex flex-col gap-3 relative overflow-hidden group">
         <div class="absolute -right-4 -top-4 w-16 h-16 bg-primary-container rounded-full opacity-10 group-hover:scale-150 transition-transform duration-500"></div>
         <div class="w-10 h-10 rounded-full bg-primary text-on-primary flex items-center justify-center font-headline-md text-headline-md font-bold mb-2 z-10">1</div>
         <h3 class="font-headline-md text-body-lg font-semibold text-primary z-10">Stay Calm &amp; Sit Down</h3>
         <p class="font-body-md text-body-md text-on-surface-variant z-10">Humanap ng komportableng upuan, i-suporta ang iyong likod, at itapat ang paa sa sahig. Huwag mag-panic.</p>
       </div>
 
-      <div class="  bg-surface-container-low rounded-lg p-6 border border-primary flex flex-col gap-3 relative overflow-hidden group">
+      <div class="bg-surface-container-low rounded-lg p-6 border border-primary flex flex-col gap-3 relative overflow-hidden group">
         <div class="absolute -right-4 -top-4 w-16 h-16 bg-primary-container rounded-full opacity-10 group-hover:scale-150 transition-transform duration-500"></div>
         <div class="w-10 h-10 rounded-full bg-primary text-on-primary flex items-center justify-center font-headline-md text-headline-md font-bold mb-2 z-10">2</div>
         <h3 class="font-headline-md text-body-lg font-semibold text-primary z-10">Wait 5 Minutes</h3>
         <p class="font-body-md text-body-md text-on-surface-variant z-10">Magpahinga muna nang tahimik sa loob ng 5 minuto, huwag mag-usap, gumalaw, o gumamit ng cellphone.</p>
       </div>
 
-      <div class="  bg-surface-container-low rounded-lg p-6 border border-primary flex flex-col gap-3 relative overflow-hidden group">
+      <div class="bg-surface-container-low rounded-lg p-6 border border-primary flex flex-col gap-3 relative overflow-hidden group">
         <div class="absolute -right-4 -top-4 w-16 h-16 bg-primary-container rounded-full opacity-10 group-hover:scale-150 transition-transform duration-500"></div>
         <div class="w-10 h-10 rounded-full bg-primary text-on-primary flex items-center justify-center font-headline-md text-headline-md font-bold mb-2 z-10">3</div>
         <h3 class="font-headline-md text-body-lg font-semibold text-primary z-10">Retest Blood Pressure after 5 Minutes</h3>
         <p class="font-body-md text-body-md text-on-surface-variant z-10">Pagkatapos magpahinga, sukatin ulit ang BP. Kung sobra pa rin sa 180/120, magpatuloy agad sa susunod na hakbang.</p>
       </div>
 
-      <div class="  bg-surface-container-low rounded-lg p-6 border border-primary flex flex-col gap-3 relative overflow-hidden group">
+      <div class="bg-surface-container-low rounded-lg p-6 border border-primary flex flex-col gap-3 relative overflow-hidden group">
+        <div class="absolute -right-4 -top-4 w-16 h-16 bg-primary-container rounded-full opacity-10 group-hover:scale-150 transition-transform duration-500"></div>
         <div class="w-10 h-10 rounded-full bg-primary text-on-primary flex items-center justify-center font-headline-md text-headline-md font-bold mb-2 z-10">4</div>
-        <h3 class="font-headline-md text-body-lg font-semibold z-10 text-primary">Call for Help</h3>
-        <p class="font-body-md text-body-md z-10">Tawagan ang pamilya o emergency contact. Ilarawan nang malinaw ang sintomas.</p>
+        <h3 class="font-headline-md text-body-lg font-semibold text-primary z-10">Call for Help</h3>
+        <p class="font-body-md text-body-md text-on-surface-variant z-10">Tawagan ang pamilya o emergency contact. Ilarawan nang malinaw ang sintomas.</p>
       </div>
 
     </div>
   </div>
 
-  <div class="md:col-span-5 flex flex-col gap-stack-md mt-8 md:mt-0">
+  <!-- Right Column: Contacts + Health Center, stacked so the column's
+       height tracks the left column's naturally instead of leaving a
+       gap below a single contact card. Grouped together because both
+       answer the same question in a crisis: who do I call, where do I go. -->
+  <div class="md:col-span-5 self-start flex flex-col gap-stack-md mt-8 md:mt-0">
+
     <!-- Contacts -->
     <div class="flex flex-col gap-stack-md">
       <h2 class="font-headline-md text-headline-md text-primary border-b border-outline-variant pb-2">Emergency Contacts</h2>
       <div class="flex flex-col gap-4">
 
-        <!-- <div class="   bg-surface-container-low rounded-lg p-5 border border-primary flex items-center justify-between">
+        <div class="bg-surface-container-low rounded-lg p-5 border border-primary flex items-center justify-between">
           <div>
-            <p class="font-label-caps text-label-caps text-primary mb-1">Barangay Health Station (BHS)</p>
-            <p class="font-headline-md text-headline-md font-bold text-on-surface  ">09123456789</p>
-          </div>
-          <a class="w-12 h-12 bg-primary text-on-primary rounded-full flex items-center justify-center hover:bg-secondary transition-colors shrink-0" href="tel:09123456789">
-            <span class="material-symbols-outlined">call</span>
-          </a>
-        </div> -->
-
-        <div class="   bg-surface-container-low rounded-lg p-5 border border-primary flex items-center justify-between">
-          <div>
-            <p class="font-label-caps text-label-caps text-primary mb-1">MDRRMO Mercedes</p>
-            <p class="font-headline-md text-headline-md font-bold text-on-surface  ">09190983190</p>
+            <div class="flex items-center gap-2 mb-1">
+              <p class="font-label-caps text-label-caps text-primary">MDRRMO Mercedes</p>
+            </div>
+            <p class="font-headline-md text-headline-md font-bold text-on-surface">09190983190</p>
           </div>
           <a class="w-12 h-12 bg-primary text-on-primary rounded-full flex items-center justify-center hover:bg-secondary transition-colors shrink-0" href="tel:09190983190">
             <span class="material-symbols-outlined">call</span>
           </a>
         </div>
 
-        <!-- <div class="   bg-surface-container-low rounded-lg p-5 border border-primary flex items-center justify-between">
-          <div>
-            <p class="font-label-caps text-label-caps text-primary mb-1">Provincial Hospital</p>
-            <p class="font-headline-md text-headline-md font-bold text-on-surface  ">09123456789</p>
-          </div>
-          <a class="w-12 h-12 bg-primary text-on-primary rounded-full flex items-center justify-center hover:bg-secondary transition-colors shrink-0" href="tel:09123456789">
-            <span class="material-symbols-outlined">call</span>
-          </a>
-        </div> -->
+        <!-- Additional contacts (Barangay Health Station, Provincial Hospital,
+             etc.) go here as the same card pattern once numbers are confirmed. -->
 
-        <!-- <div class="   bg-surface-container-low rounded-lg p-5 border border-primary flex items-center justify-between">
-          <div>
-            <p class="font-label-caps text-label-caps text-primary mb-1">Other Emergency Care Services</p>
-            <p class="font-headline-md text-headline-md font-bold text-on-surface  ">09171234567</p>
-          </div>
-          <a class="w-12 h-12 bg-primary text-on-primary rounded-full flex items-center justify-center hover:bg-secondary transition-colors shrink-0" href="tel:09171234567">
-            <span class="material-symbols-outlined">call</span>
-          </a>
-        </div> -->
       </div>
     </div>
-  </div>
 
-  <!-- Right Column: Contacts & Location, side-by-side -->
-  <div class="md:col-span-12 flex flex-col gap-stack-md mt-8 md:mt-8">
-    <h2 class="font-headline-md text-headline-md text-on-surface border-b border-outline-variant pb-2 text-primary">Health Center</h2>
-    <div class="  bg-surface-container-low rounded-xl overflow-hidden border border-primary shadow-sm md:flex">
-      <div class="h-56 md:h-auto md:w-1/2 w-full relative bg-surface-container-low">
-        <iframe
-          id="facilityMapFrame"
-          class="w-full h-full border-0"
-          loading="lazy"
-          referrerpolicy="no-referrer-when-downgrade">
-        </iframe>
-        <div id="mapLoadingOverlay" class="absolute inset-0 flex flex-col items-center justify-center gap-2 bg-surface-container-low">
-          <span class="material-symbols-outlined animate-spin text-primary text-3xl">progress_activity</span>
-          <p class="font-label-caps text-label-caps text-on-surface-variant">Locating your position...</p>
-        </div>
-      </div>
-      <div class="p-8 md:w-1/2 flex flex-col justify-center gap-4">
-        <div class="flex items-center gap-4">
-          <div class="w-14 h-14 rounded-full bg-primary-container text-on-primary-container flex items-center justify-center shrink-0">
-            <span class="material-symbols-outlined text-2xl" data-weight="fill">local_hospital</span>
-          </div>
-          <div>
-            <h3 class="font-headline-md text-headline-md text-primary">Barangay Health Center</h3>
+    <!-- Health Center -->
+    <div class="flex flex-col gap-stack-md">
+      <h2 class="font-headline-md text-headline-md text-on-surface border-b border-outline-variant pb-2 text-primary">Health Center</h2>
+      <div class="bg-surface-container-low rounded-xl overflow-hidden border border-primary shadow-sm flex flex-col sm:flex-row sm:min-h-[221px]">
+
+        <div class="h-40 sm:h-auto sm:w-[58%] w-full relative bg-surface-container-low shrink-0">
+          <iframe
+            id="facilityMapFrame"
+            class="w-full h-full border-0"
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade">
+          </iframe>
+          <div id="mapLoadingOverlay" class="absolute inset-0 flex flex-col items-center justify-center gap-2 bg-surface-container-low">
+            <span class="material-symbols-outlined animate-spin text-primary text-3xl">progress_activity</span>
+            <p class="font-label-caps text-label-caps text-on-surface-variant text-center px-2">Locating your position...</p>
           </div>
         </div>
 
-        <div class="flex flex-col sm:flex-row md:flex-col lg:flex-row justify-end gap-3 mt-2">
-          <button id="locateBtn"
-            class="inline-flex items-center justify-center gap-2 bg-surface-container-low text-primary border border-primary font-label-caps text-label-caps px-6 py-3 rounded-lg w-full md:w-fit hover:bg-primary-container transition-colors shadow-sm">
-            <span class="material-symbols-outlined">my_location</span>
-            Locate Health Center
-          </button>
+        <div class="p-5 flex-1 min-w-0 flex flex-col justify-center gap-4">
+          <div class="flex items-center gap-3">
+            <div class="w-11 h-11 rounded-full bg-primary-container text-on-primary-container flex items-center justify-center shrink-0">
+              <span class="material-symbols-outlined text-lg" data-weight="fill">local_hospital</span>
+            </div>
+            <h3 class="font-headline-md text-body-lg font-semibold text-primary leading-tight">Barangay Health Center</h3>
+          </div>
 
-          <button id="directionsBtn" aria-disabled="true"
-            class="inline-flex items-center justify-center gap-2 bg-primary text-on-primary font-label-caps text-label-caps px-6 py-3 rounded-lg w-full md:w-fit md:self-end hover:bg-secondary transition-colors shadow-sm opacity-50 cursor-not-allowed">
-            <span class="material-symbols-outlined">directions</span>
-            Start Directions
-          </button>
+          <div class="flex flex-col gap-3">
+            <button id="locateBtn"
+              class="inline-flex items-center justify-center gap-2 bg-surface-container-low text-primary border border-primary font-label-caps text-label-caps px-4 py-2.5 rounded-lg w-full min-h-[50px] hover:bg-primary-container transition-colors shadow-sm">
+              <span class="material-symbols-outlined text-lg">my_location</span>
+              Locate Health Center
+            </button>
+
+            <button id="directionsBtn"
+              class="inline-flex items-center justify-center gap-2 bg-primary text-on-primary font-label-caps text-label-caps px-4 py-2.5 rounded-lg w-full min-h-[44px] hover:bg-secondary transition-colors shadow-sm">
+              <span class="material-symbols-outlined text-lg">directions</span>
+              Start Directions
+            </button>
+          </div>
         </div>
       </div>
     </div>
+
   </div>
 
 </div>

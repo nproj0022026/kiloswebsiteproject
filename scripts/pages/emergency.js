@@ -138,8 +138,11 @@ function setLocateButtonState(btn, state) {
   if (state === "locating") {
     btn.dataset.originalLabel = btn.dataset.originalLabel || btn.innerHTML;
     btn.innerHTML = `
-      <span class="material-symbols-outlined animate-spin">progress_activity</span>
-      Locating you...`;
+      <span class="inline-flex items-center gap-1">
+        <span class="w-1.5 h-1.5 rounded-full bg-current animate-bounce [animation-delay:-0.3s]"></span>
+        <span class="w-1.5 h-1.5 rounded-full bg-current animate-bounce [animation-delay:-0.15s]"></span>
+        <span class="w-1.5 h-1.5 rounded-full bg-current animate-bounce"></span>
+      </span>`;
     btn.setAttribute("aria-busy", "true");
   } else {
     // Covers both "found" and "default" — the button always returns to its

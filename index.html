@@ -41,7 +41,7 @@
      so the document/body itself never scrolls. That's what stops mobile browsers
      from collapsing/expanding their address bar mid-scroll, which was shifting the
      fixed header/bottom-nav/chatbot around. -->
-<main id="page-content" class="flex-1 overflow-y-auto [-webkit-overflow-scrolling:touch] w-full max-w mx-auto px-container-margin py-[25px] flex flex-col gap-[35px] min-w-0"></main>
+<main id="page-content" class="flex-1 overflow-y-auto overflow-x-hidden [-webkit-overflow-scrolling:touch] w-full max-w mx-auto px-container-margin py-[25px] flex flex-col gap-[35px] min-w-0"></main>
 
 <!-- Shared BottomNavBar, mobile only. In normal flow now (not position:fixed) since
      it's a flex sibling of the scrolling #page-content within the body's flex column. -->
