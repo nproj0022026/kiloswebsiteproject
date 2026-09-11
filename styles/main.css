@@ -1,5 +1,16 @@
 /* Project K.I.L.O.S. - Shared Styles */
 
+/* App-shell height: body is the fixed-height flex column (header / scrolling
+   #page-content / bottom-nav); #page-content is the only element that scrolls.
+   This keeps the document itself from ever scrolling, which is what stops
+   mobile browsers from collapsing their address bar mid-scroll and shifting
+   the fixed header/bottom-nav/chatbot around. 100vh first as a fallback for
+   browsers without dvh support, then overridden by 100dvh where available. */
+html, body {
+  height: 100vh;
+  height: 100dvh;
+}
+
 /* Material Symbols icon rendering: outline by default, filled when
    the element has data-weight="fill" (e.g. the active bottom-nav item) */
 .material-symbols-outlined {

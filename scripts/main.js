@@ -137,7 +137,7 @@ async function render() {
     if (route.page === "about" && typeof initAboutPage === "function") initAboutPage();
     if (route.page === "emergency" && typeof initEmergencyPage === "function") initEmergencyPage();
 
-    window.scrollTo({ top: 0, behavior: "instant" in window ? "instant" : "auto" });
+    mount.scrollTo({ top: 0, behavior: "instant" in window ? "instant" : "auto" });
   } catch (err) {
     mount.innerHTML = `<p class="text-error p-6">Sorry, this page could not be loaded. Please check your connection and try again.</p>`;
     console.error(err);
@@ -199,7 +199,7 @@ async function render() {
     }).join("");
 
     mount.innerHTML = `
-  <nav class="fixed bottom-0 left-0 w-full z-50 flex items-center px-4 py-3 md:hidden bg-surface border-t border-outline-variant shadow-lg">${links}
+  <nav class="w-full z-50 flex items-center px-4 py-3 md:hidden bg-surface border-t border-outline-variant shadow-lg">${links}
   </nav>`;
   };
 
