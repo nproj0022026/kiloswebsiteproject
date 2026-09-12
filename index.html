@@ -124,13 +124,31 @@
     </div>
   </div>
 
-  <!-- Input row -->
-  <form id="chatbot-form" class="flex items-end gap-2 px-3 py-3 border-t border-outline-variant bg-surface shrink-0">
+  <!-- Wrapper gives the suggestions popup a positioning context: it's
+       absolutely positioned with bottom-full, which anchors its bottom
+       edge to the top edge of this wrapper (= top of the form) no
+       matter the form's actual height (textarea auto-resizes). Being
+       absolute, it floats OVER the message list behind it rather than
+       pushing the form down — a real popup, not another docked block. -->
+  <div class="relative shrink-0">
+    <!-- FAQ suggestions popup — floats ATTACHED to the #chatbot-input
+         TEXTAREA BOX specifically, not just "above the form row."
+         bottom-full alone would land at the form's outer top edge,
+         leaving a gap equal to the form's py-3 top padding (12px)
+         before the actual textarea border starts. bottom-[calc(100%-12px)]
+         shifts it down by exactly that padding so its bottom edge is
+         flush with the textarea's own top border. left-3/right-16 still
+         match the textarea's left/right edges (not the send button's). -->
+    <div id="chatbot-suggestions" class="hidden flex-col absolute z-10 bottom-[calc(100%-8px)] left-3 right-16 border border-outline-variant rounded-lg overflow-hidden bg-surface"></div>
+
+    <!-- Input row -->
+    <form id="chatbot-form" class="flex items-end gap-2 px-3 py-3 border-t border-outline-variant bg-surface shrink-0">
     <textarea id="chatbot-input" rows="1" maxlength="500" placeholder="Magtanong tungkol sa iyong BP..." aria-label="Type your question" class="flex-1 resize-none max-h-24 rounded-lg border border-outline-variant px-3 py-2 font-body-md text-body-md bg-surface-container-low focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all"></textarea>
     <button type="submit" id="chatbot-send-btn" aria-label="Send message" class="shrink-0 w-11 h-11 rounded-full bg-primary text-on-primary flex items-center justify-center hover:bg-secondary transition-colors disabled:opacity-50 disabled:pointer-events-none">
       <span class="material-symbols-outlined" aria-hidden="true">send</span>
     </button>
   </form>
+  </div>
 </div>
 
 </body>

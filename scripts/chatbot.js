@@ -19,6 +19,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const form = document.getElementById("chatbot-form");
   const input = document.getElementById("chatbot-input");
   const sendBtn = document.getElementById("chatbot-send-btn");
+  const suggestionsEl = document.getElementById("chatbot-suggestions");
 
   if (!launcher || !panel || !form || !input) return; // markup missing; fail quiet
 
@@ -27,6 +28,14 @@ document.addEventListener("DOMContentLoaded", function () {
   // Matches api/chat.js's MAX_HISTORY_MESSAGES on the server side.
   const MAX_HISTORY_MESSAGES = 10;
   const history = []; // { role: "user" | "model", text: string }
+
+  // Shown once, attached to the greeting bubble, on first open only.
+  // Tapping one sends it as if the user typed and submitted it.
+  const SUGGESTED_QUESTIONS = [
+    "Anong mga pagkain ang dapat kainin kung may hypertension?",
+    "Anong ehersisyo ang ligtas para sa may hypertension?",
+    "Ano ang gagawin kapag nakalimutan kong inumin ang gamot?"
+  ];
 
   let isOpen = false;
   let isSending = false;
@@ -41,17 +50,55 @@ document.addEventListener("DOMContentLoaded", function () {
     const isUser = role === "user";
 
     bubble.className = isUser
-      ? "self-end max-w-[85%] bg-primary text-on-primary font-body-md text-body-md px-3 py-2 rounded-xl rounded-br-sm whitespace-pre-wrap break-words"
-      : "self-start max-w-[85%] bg-surface text-on-surface border border-outline-variant font-body-md text-body-md px-3 py-2 rounded-xl rounded-bl-sm whitespace-pre-wrap break-words";
+      ? "self-end max-w-[85%] bg-primary text-on-primary font-body-md text-sm leading-snug px-3 py-2 rounded-xl rounded-br-sm whitespace-pre-wrap break-words"
+      : "self-start max-w-[85%] bg-surface text-on-surface border border-outline-variant font-body-md text-sm leading-snug px-3 py-2 rounded-xl rounded-bl-sm whitespace-pre-wrap break-words";
 
     bubble.textContent = text;
     messagesEl.appendChild(bubble);
     scrollToBottom();
   }
 
+  // Greeting is a normal message bubble in the scrolling list. The FAQ
+  // suggestions live in the FIXED dock above the input (#chatbot-suggestions
+  // in index.html) instead of the message list — so they read as an
+  // attachment to the input box itself (like an autocomplete dropdown),
+  // not another chat bubble that scrolls away.
+  function appendGreetingWithSuggestions(greetingText) {
+    appendMessage("model", greetingText);
+    showSuggestions();
+  }
+
+  function showSuggestions() {
+    if (!suggestionsEl || !SUGGESTED_QUESTIONS.length) return;
+
+    suggestionsEl.innerHTML = "";
+    SUGGESTED_QUESTIONS.forEach((question, i) => {
+      const btn = document.createElement("button");
+      btn.type = "button";
+      const isLast = i === SUGGESTED_QUESTIONS.length - 1;
+      btn.className = `text-left px-3 py-2 font-body-md text-sm leading-snug text-brand-maroon hover:bg-surface-container-low transition-colors ${isLast ? "" : "border-b border-outline-variant"}`;
+      btn.textContent = question;
+      btn.addEventListener("click", () => {
+        hideSuggestions();
+        sendMessage(question);
+      });
+      suggestionsEl.appendChild(btn);
+    });
+
+    suggestionsEl.classList.remove("hidden");
+    suggestionsEl.classList.add("flex");
+  }
+
+  function hideSuggestions() {
+    if (!suggestionsEl) return;
+    suggestionsEl.classList.add("hidden");
+    suggestionsEl.classList.remove("flex");
+    suggestionsEl.innerHTML = "";
+  }
+
   function appendErrorMessage(text) {
     const bubble = document.createElement("div");
-    bubble.className = "self-start max-w-[85%] bg-error-container text-on-error-container font-body-md text-body-md px-3 py-2 rounded-xl rounded-bl-sm whitespace-pre-wrap break-words";
+    bubble.className = "self-start max-w-[85%] bg-error-container text-on-error-container font-body-md text-sm leading-snug px-3 py-2 rounded-xl rounded-bl-sm whitespace-pre-wrap break-words";
     bubble.textContent = text;
     messagesEl.appendChild(bubble);
     scrollToBottom();
@@ -78,8 +125,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     if (!hasGreeted) {
       hasGreeted = true;
-      appendMessage(
-        "model",
+      appendGreetingWithSuggestions(
         "Kumusta! Ako ang K.I.L.O.S. Assistant. Puwede kitang tulungan tungkol sa hypertension, DASH diet, o kung paano gamitin ang site na ito. Ano ang gusto mong itanong?"
       );
     }
@@ -119,18 +165,17 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   });
 
-  form.addEventListener("submit", async (e) => {
-    e.preventDefault();
-    if (isSending) return;
+  // Shared send path for both the form submit and the FAQ suggestion
+  // buttons, so a tapped suggestion behaves exactly like a typed
+  // message (appended, sent, added to history) rather than duplicating
+  // that logic in two places.
+  async function sendMessage(message) {
+    if (isSending || !message) return;
 
-    const message = input.value.trim();
-    if (!message) return;
-
+    hideSuggestions();
     appendMessage("user", message);
     history.push({ role: "user", text: message });
 
-    input.value = "";
-    input.style.height = "auto";
     setSending(true);
 
     try {
@@ -148,7 +193,6 @@ document.addEventListener("DOMContentLoaded", function () {
       if (!res.ok || !data || typeof data.reply !== "string") {
         const errText = (data && data.error) || "Sorry, I couldn't respond right now.";
         appendErrorMessage(errText);
-        setSending(false);
         return;
       }
 
@@ -160,5 +204,15 @@ document.addEventListener("DOMContentLoaded", function () {
     } finally {
       setSending(false);
     }
+  }
+
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const message = input.value.trim();
+    if (!message) return;
+
+    input.value = "";
+    input.style.height = "auto";
+    await sendMessage(message);
   });
 });
