@@ -204,12 +204,10 @@ function buildMealPlanHtml(meals) {
    Elevated and High (not Low — hypotension guidance is unrelated
    to sodium restriction). Counts sourced from the client's revisions
    doc (1,800–2,000-cal/day reference plan). servingSize definitions added
-   from the client's own NHLBI "What's on Your Plate?" PDFs (1,200 /
-   1,400-1,600 / 1,800-2,000 / 2,600 cal) — these definitions are
-   identical across all four calorie tiers, only the daily/weekly
-   COUNT changes per tier, so they're safe to use regardless of which
-   calorie link the user ultimately follows. Sodium has no serving
-   size (it's a limit, not a food group serving). */
+   from the client's own NHLBI "What's on Your Plate?" PDFs — these
+   definitions are identical across all NHLBI calorie tiers, only the
+   daily/weekly COUNT changes per tier. Sodium has no serving size
+   (it's a limit, not a food group serving). */
 const DASH_SERVING_TABLE = [
   { group: "Grains", amount: "6–8", period: "araw-araw", servingSize: "1 slice tinapay, 1 oz dry cereal, o ½ cup lutong kanin/pasta/cereal" },
   { group: "Gulay (Vegetables)", amount: "4–5", period: "araw-araw", servingSize: "1 cup sariwang dahon, ½ cup hiniwang gulay (raw o luto), o ½ cup vegetable juice" },
@@ -220,13 +218,6 @@ const DASH_SERVING_TABLE = [
   { group: "Sodium", amount: "2,300mg (1,500mg para mas malaking bawas sa BP)", period: "araw-araw", servingSize: null },
   { group: "Mani, buto, dry beans, at monggo", amount: "4–5", period: "lingguhan", servingSize: "⅓ cup o 1½ oz mani (unsalted), 2 tbsp peanut butter, 2 tbsp buto, o ½ cup lutong beans" },
   { group: "Matamis", amount: "5 pababa", period: "lingguhan", servingSize: "1 tbsp asukal, 1 tbsp jam, ½ cup sorbet/gulaman, o 1 cup lemonade" }
-];
-
-const DASH_CALORIE_LINKS = [
-  { label: "1,200 calories/araw", url: "https://www.nhlbi.nih.gov/resources/whats-your-plate-1200-caloriesday" },
-  { label: "1,400–1,600 calories/araw", url: "https://www.nhlbi.nih.gov/resources/whats-your-plate-1400-1600-caloriesday" },
-  { label: "1,800–2,000 calories/araw", url: "https://www.nhlbi.nih.gov/resources/whats-your-plate-1800-2000-caloriesday" },
-  { label: "2,600 calories/araw", url: "https://www.nhlbi.nih.gov/resources/whats-your-plate-2600-caloriesday" }
 ];
 
 const SODIUM_TIPS = {
@@ -259,9 +250,6 @@ function buildDashServingHtml() {
       <td class="py-2 text-on-surface-variant whitespace-nowrap">${r.period}</td>
     </tr>`).join("");
 
-  const links = DASH_CALORIE_LINKS.map((l) => `
-    <a href="${l.url}" target="_blank" rel="noopener" class="text-primary underline text-xs hover:text-secondary transition-colors">${l.label}</a>`).join("");
-
   const servingSizeRows = DASH_SERVING_TABLE
     .filter((r) => r.servingSize)
     .map((r) => `
@@ -285,9 +273,6 @@ function buildDashServingHtml() {
           <tbody>${rows}</tbody>
         </table>
       </div>
-      <p class="text-xs text-on-surface-variant mt-6">Iba-iba ang kailangan mong serving depende sa iyong pang-araw-araw na calorie needs:</p>
-      <div class="flex flex-wrap gap-x-3 gap-y-1 mt-1">${links}</div>
-
       <div class="mt-6">
         <p class="font-label-caps text-label-caps text-primary">ANO ANG 1 SERVING?</p>
         <ul class="grid grid-cols-1 sm:grid-cols-2 gap-2 mt-2 text-xs pl-1">${servingSizeRows}</ul>
@@ -398,26 +383,26 @@ const LOW_CONFIG = {
   showSodiumGuidance: false
 };
 
+/* No "pdf" field anymore — the DASH PDF is generated client-side from
+   this same title/body content via downloadDashPdf() (html2pdf.js), so
+   there's no separate static file to keep in sync. See
+   Project-KILOS-DASH-PDF-Plan.md. */
 const DASH_CONTENT = {
   Elevated: {
     title: "Simulan ang DASH Diet",
-    body: buildDashHtml(ELEVATED_CONFIG),
-    pdf: "assets/dash-pdf-files/dash-elevated.pdf"
+    body: buildDashHtml(ELEVATED_CONFIG)
   },
   "High (Stage 1)": {
     title: "DASH Diet — Kailangan Mo Ito",
-    body: buildDashHtml(HIGH_CONFIG),
-    pdf: "assets/dash-pdf-files/dash-high.pdf"
+    body: buildDashHtml(HIGH_CONFIG)
   },
   "High (Stage 2)": {
     title: "DASH Diet — Kailangan Mo Ito",
-    body: buildDashHtml(HIGH_CONFIG),
-    pdf: "assets/dash-pdf-files/dash-high.pdf"
+    body: buildDashHtml(HIGH_CONFIG)
   },
   Low: {
     title: "Alagaan ang Mababang BP",
-    body: buildDashHtml(LOW_CONFIG),
-    pdf: "assets/dash-pdf-files/dash-low.pdf"
+    body: buildDashHtml(LOW_CONFIG)
   }
 };
 
@@ -432,6 +417,13 @@ function resetModalScroll(overlay) {
   const scrollable = overlay.firstElementChild;
   if (scrollable) scrollable.scrollTop = 0;
 }
+
+/* Tracks the reading currently shown in the DASH modal, so the download
+   handler (wired once in initBpForm) knows what to render into the PDF
+   without needing the click handler itself to take arguments. Set every
+   time the modal opens; cleared on close is unnecessary since it's only
+   ever read while the modal is open. */
+let currentDashReading = null;
 
 function openDashModal(category, systolic, diastolic) {
   const overlay = document.getElementById("dash-modal-overlay");
@@ -451,16 +443,202 @@ function openDashModal(category, systolic, diastolic) {
   document.querySelector("[data-dash-title]").textContent = content.title;
   document.querySelector("[data-dash-body]").innerHTML = content.body;
 
-  const downloadLink = document.getElementById("dash-download-link");
-  if (content.pdf) {
-    downloadLink.href = content.pdf;
-    downloadLink.classList.remove("hidden");
-  } else {
-    downloadLink.classList.add("hidden");
-  }
+  // PDF is now generated client-side from the modal's own content on
+  // click (see downloadDashPdf), not linked to a static pre-made file —
+  // so the button is always shown for every DASH category.
+  currentDashReading = { category, systolic, diastolic };
+  document.getElementById("dash-download-link").classList.remove("hidden");
 
   overlay.classList.remove("hidden");
   resetModalScroll(overlay);
+}
+
+/* Builds "MM-DD-YYYY-Category" — slashes aren't valid in filenames, and
+   the category label ("High (Stage 1)") has spaces/parens that need
+   stripping down to something filename-safe. */
+function buildDashPdfFilename(category) {
+  const now = new Date();
+  const mm = String(now.getMonth() + 1).padStart(2, "0");
+  const dd = String(now.getDate()).padStart(2, "0");
+  const yyyy = now.getFullYear();
+
+  const safeCategory = category
+    .replace(/[()]/g, "")   // "High (Stage 1)" -> "High Stage 1"
+    .trim()
+    .replace(/\s+/g, "-");  // "High Stage 1" -> "High-Stage-1"
+
+  return `${mm}-${dd}-${yyyy}-${safeCategory}.pdf`;
+}
+
+/* PDF-only header — just the logo + "K.I.L.O.S." wordmark. (No title line
+   here — the category's own heading, e.g. "Alagaan ang Mababang BP",
+   already appears in the body just below, so repeating it up top was
+   redundant.) Wrapped in a marked container so it can be found and
+   stripped back out after generation — this never touches the on-screen
+   modal, only what html2canvas captures. */
+function buildDashPdfHeader() {
+  const wrapper = document.createElement("div");
+  wrapper.dataset.pdfHeaderTemp = "true";
+  wrapper.innerHTML = `
+    <div style="display:flex;align-items:center;gap:8px;margin-bottom:16px;">
+      <img src="assets/logo/kilos-logo.png" alt="" style="width:28px;height:28px;object-fit:contain;">
+      <span style="color:#8a0000;font-weight:700;font-size:13px;letter-spacing:0.05em;">K.I.L.O.S.</span>
+    </div>
+  `;
+  return wrapper;
+}
+
+/* PDF-only footer — divider + fixed disclaimer, specific to this pilot
+   (Barangay Tarum, Mercedes, Camarines Norte). */
+function buildDashPdfFooter() {
+  const wrapper = document.createElement("div");
+  wrapper.dataset.pdfFooterTemp = "true";
+  wrapper.innerHTML = `
+    <hr style="border:none;border-top:1px solid #bfc9c1;margin-top:24px;margin-bottom:12px;">
+    <p style="text-align:center;color:#404943;font-size:11px;line-height:1.5;">
+      Project K.I.L.O.S. — Barangay Tarum, Mercedes, Camarines Norte. Ang gabay na ito ay para sa impormasyon lamang; kumonsulta pa rin sa BHW o health center kung may katanungan.
+    </p>
+  `;
+  return wrapper;
+}
+
+/* Resolves once the logo image has actually loaded (or immediately if
+   it's already cached — likely, since the same image is used in the
+   site header). html2canvas can render a broken/blank image if the
+   capture fires before the browser finishes loading it. Falls back to
+   resolving after 1.5s regardless, so a slow/broken image can't hang
+   the whole download. */
+function waitForImage(img) {
+  return new Promise((resolve) => {
+    if (img.complete) return resolve();
+    img.addEventListener("load", resolve, { once: true });
+    img.addEventListener("error", resolve, { once: true });
+    setTimeout(resolve, 1500);
+  });
+}
+
+/* Toggles the download button between its normal and "generating" state.
+   A brief disabled/spinner state matters here specifically because
+   html2canvas rendering the longer Elevated/High content (serving table +
+   sodium tips + meal plan) isn't instant — without feedback the button
+   looks unresponsive and invites a double-click, which would otherwise
+   kick off two PDF generations at once. */
+function setDashDownloadLoading(isLoading) {
+  const link = document.getElementById("dash-download-link");
+  if (!link) return;
+
+  if (isLoading) {
+    link.dataset.originalText = link.textContent.trim();
+    link.textContent = "Ginagawa ang PDF…";
+    link.classList.add("opacity-50", "pointer-events-none");
+  } else {
+    link.textContent = link.dataset.originalText || "I-download ang DASH Guide (PDF)";
+    link.classList.remove("opacity-50", "pointer-events-none");
+  }
+}
+
+/* Generates the PDF from a COPY of the DASH modal's content, not the
+   live modal itself.
+
+   Earlier version inserted the header/footer directly into the visible
+   [data-dash-pdf-capture] element, then removed them after html2pdf
+   finished. That's rendering, not capture — html2canvas isn't instant,
+   so for that brief window the header/footer were genuinely part of the
+   on-screen DOM and visibly flashed in the real modal.
+
+   Fix: clone the capture target, inject the header/footer into the
+   clone only, park the clone off-screen (position:fixed, left:-9999px —
+   still fully rendered/laid out by the browser, just not in the visible
+   viewport, which is required for html2canvas to measure it correctly),
+   generate the PDF from the clone, then discard the whole off-screen
+   container. The real modal is never modified. */
+async function downloadDashPdf() {
+  if (!currentDashReading) return;
+  if (typeof html2pdf === "undefined") {
+    console.error("html2pdf.js failed to load — check the CDN script tag in index.html.");
+    return;
+  }
+
+  const captureTarget = document.querySelector("[data-dash-pdf-capture]");
+  if (!captureTarget) return;
+
+  const filename = buildDashPdfFilename(currentDashReading.category);
+
+  setDashDownloadLoading(true);
+
+  const clone = captureTarget.cloneNode(true);
+  clone.style.backgroundColor = "#ffffff"; // override bg-surface's cream tint (#fcf9f8) — PDF should be pure white
+  const header = buildDashPdfHeader();
+  const footer = buildDashPdfFooter();
+  clone.prepend(header);
+  clone.append(footer);
+
+  const offscreen = document.createElement("div");
+  offscreen.style.position = "fixed";
+  offscreen.style.left = "-9999px";
+  offscreen.style.top = "0";
+  offscreen.style.width = `${captureTarget.offsetWidth}px`; // match on-screen width so text wraps the same
+  offscreen.style.backgroundColor = "#ffffff";
+  offscreen.appendChild(clone);
+  document.body.appendChild(offscreen);
+
+  try {
+    await waitForImage(header.querySelector("img"));
+
+    // Auto-size the page to the content instead of a fixed A4 sheet — this
+    // is a digital-only guide (never printed on a physical tray), so there's
+    // no benefit to a standard paper size, and a fixed A4 height either left
+    // the short "Low" guide with an empty near-blank second page or cut the
+    // longer "High"/"Elevated" guides (serving table + sodium tips + meal
+    // plan) mid-list at the page break.
+    //
+    // Measured from the clone's own layout box (post-image-load, so the
+    // logo doesn't shift the height after we measure) rather than the
+    // on-screen modal, since the clone is what's actually being captured —
+    // it has the header/footer appended and a fixed pixel width already.
+    const marginMm = 10;
+    // Small safety buffer added to the measured height only — absorbs
+    // sub-pixel rounding between this measurement and html2pdf's own
+    // internal re-render (it deep-clones this element again into its own
+    // container before capture), so Math.ceil() in html2pdf's page-count
+    // calculation can't tip a borderline height into a spurious 2nd page.
+    const heightBufferMm = 4;
+    const pxToMm = (px) => (px * 25.4) / 96; // CSS px (96/in) -> mm
+    const pageWidthMm = pxToMm(clone.offsetWidth) + marginMm * 2;
+    const pageHeightMm = pxToMm(clone.offsetHeight) + marginMm * 2 + heightBufferMm;
+
+    await html2pdf()
+      .set({
+        filename,
+        margin: marginMm,
+        image: { type: "jpeg", quality: 0.98 },
+        html2canvas: { scale: 2, useCORS: true, backgroundColor: "#ffffff" },
+        jsPDF: { unit: "mm", format: [pageWidthMm, pageHeightMm], orientation: "portrait" },
+        // NOTE: mode "avoid-all" was removed on purpose — it doesn't mean
+        // "never add a page", it means "never let a page-break land inside
+        // any element" (applied via querySelectorAll('*'), i.e. every node,
+        // even icon spans and bullets). Combined with a page height sized
+        // to fit content exactly, ordinary sub-pixel rounding makes a
+        // handful of trailing elements (a chip, the <hr>, the footer <p>)
+        // register as "straddling" the boundary, and each one gets pushed
+        // onto the next page via an inserted padding <div> — and because
+        // that insertion loop mutates the DOM while it iterates, each push
+        // shifts every later element down too, cascading into the
+        // blank-page / content-page / stranded-footer-page pattern we saw.
+        // An empty mode array disables that logic entirely — with the
+        // buffered page height above, everything should land on one page
+        // through the plain page-count math in html2pdf's core (toPdf()),
+        // with no per-element break-avoidance running at all.
+        pagebreak: { mode: [] }
+      })
+      .from(clone)
+      .save();
+  } catch (err) {
+    console.error("PDF generation failed:", err);
+  } finally {
+    offscreen.remove();
+    setDashDownloadLoading(false);
+  }
 }
 
 function closeDashModal() {
@@ -604,9 +782,11 @@ function initBpForm() {
   }
 
   if (dashDownloadLink) {
-    dashDownloadLink.addEventListener("click", () => {
+    dashDownloadLink.addEventListener("click", (e) => {
+      e.preventDefault(); // no static href to follow anymore
       // Leave modal open — user may want to re-read guidance after
       // downloading. They close it manually via dashModalClose.
+      downloadDashPdf();
     });
   }
 

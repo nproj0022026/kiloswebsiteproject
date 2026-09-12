@@ -214,18 +214,28 @@
 <div id="dash-modal-overlay" class="hidden fixed inset-0 z-[100] flex items-center justify-center bg-on-surface/40 backdrop-blur-sm p-4">
   <div class="bg-surface rounded-xl shadow-xl max-w-[560px] w-full max-h-[85vh] overflow-y-auto flex flex-col gap-6 border border-outline-variant p-8">
 
-    <!-- Reading + status recap. Checkmark icon alone = saved, no label text. -->
-    <div class="flex items-center gap-3">
-      <span class="material-symbols-outlined text-3xl" data-dash-icon>check_circle</span>
-      <span class="font-headline-md text-headline-md text-on-surface" data-dash-reading>-- / --</span>
-      <span class="ml-auto inline-flex items-center px-3 py-1 rounded-full text-xs font-label-caps" data-dash-status-badge>Status</span>
-    </div>
+    <!-- PDF CAPTURE TARGET — everything a user should see in the downloaded
+         PDF lives inside this wrapper (reading/status recap + DASH guidance
+         content). The download/close buttons below are deliberately outside
+         it, so html2pdf.js never bakes button chrome into the image. See
+         Project-KILOS-DASH-PDF-Plan.md. Explicit bg-surface so the capture
+         has a solid background even if html2canvas is invoked while the
+         overlay behind it is still technically in the DOM. -->
+    <div data-dash-pdf-capture class="bg-surface flex flex-col gap-6">
 
-    <!-- DASH guidance content, swapped per category by tracker.js -->
-    <div class="flex flex-col gap-3">
-      <h2 class="font-headline-md text-headline-md text-primary" data-dash-title>DASH Diet Guidance</h2>
-      <div class="text-on-surface-variant text-sm flex flex-col gap-2" data-dash-body>
-        <!-- populated dynamically -->
+      <!-- Reading + status recap. Checkmark icon alone = saved, no label text. -->
+      <div class="flex items-center gap-3">
+        <span class="material-symbols-outlined text-3xl" data-dash-icon>check_circle</span>
+        <span class="font-headline-md text-headline-md text-on-surface" data-dash-reading>-- / --</span>
+        <span class="ml-auto inline-flex items-center px-3 py-1 rounded-full text-xs font-label-caps" data-dash-status-badge>Status</span>
+      </div>
+
+      <!-- DASH guidance content, swapped per category by tracker.js -->
+      <div class="flex flex-col gap-3">
+        <h2 class="font-headline-md text-headline-md text-primary" data-dash-title>DASH Diet Guidance</h2>
+        <div class="text-on-surface-variant text-sm flex flex-col gap-2" data-dash-body>
+          <!-- populated dynamically -->
+        </div>
       </div>
     </div>
 
